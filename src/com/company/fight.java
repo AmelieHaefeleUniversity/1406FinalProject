@@ -58,7 +58,7 @@ public class fight {
         }
         return false;
     }
-    public void heroTurn(int i){
+    private void heroTurn(int i){
         // Sets the current character to get info from, so they can have their turn
         Character obj = _heroArray.get(i);
 
@@ -67,22 +67,22 @@ public class fight {
             return;
         }
         this._action = obj.getAction(_heroArray,_enemyArray,obj);
-        String chosenActionType = masterActionList.get(_action).getActionType();
+        String chosenActionType = _action.getActionType();
         if (chosenActionType.equals("neural")){
             //set target as current persons turn
             this._target = _heroArray.get(i);
         }
         if (chosenActionType.equals("helpful")){
-            //this.target = obj.getTarget(_heroArray)
+            this._target = obj.getTarget(_heroArray);
 
         }
         if (chosenActionType.equals("harmful")) {
-            //this.target = obj.getTarget(_enemyArray)
+            this._target = obj.getTarget(_enemyArray);
         }
         _target.effect(_action);
 
     }
-    public void enemyTurn (int i){
+    private void enemyTurn (int i){
         // Sets the current character to get info from, so they can have their turn
         Character obj = _enemyArray.get(i);
 
@@ -91,7 +91,7 @@ public class fight {
             return;
         }
         this._action = obj.getAction(_enemyArray, _heroArray, obj);
-        String chosenActionType = masterActionList.get(_action).getActionType();
+        String chosenActionType = _action.getActionType();;
         if (chosenActionType.equals("neural")){
             //set target as current persons turn
             this._target = _enemyArray.get(i);
@@ -107,7 +107,7 @@ public class fight {
 
     }
 
-    public boolean checkDead(Character obj, int i){
+    private boolean checkDead(Character obj, int i){
         // Checks if the current character is dead
         if (obj.getHealth() <= 0){
             _charactersInFight.remove(i);
@@ -125,16 +125,16 @@ public class fight {
         }
     }
 
-    public ArrayList<Character> addLists(ArrayList<Character> list1, ArrayList<Character> list2){
-        ArrayList<Character> result = new ArrayList<Character>(list1.size()+list2.size());
+    private ArrayList<Character> addLists(ArrayList<Character> list1, ArrayList<Character> list2){
+        ArrayList<Character> result = new ArrayList<Character>();
         int i = 0;
         while (i < list1.size()){
-            result.set(i, list1.get(i));
+            result.add(i, list1.get(i));
             i++;
         }
         int j = 0;
         while (j < list2.size()){
-            result.set(i, list2.get(j));
+            result.add(i, list2.get(j));
             i++;
             j++;
         }

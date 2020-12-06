@@ -19,8 +19,9 @@ public class Character {
 
     public void takeTurn(){
     }
-    public int getTarget(){
-       return -1;
+    public Character getTarget(ArrayList<Character> _heroArray){
+       Character error = new Character("Error",-1,-2);
+       return error;
     }
     public int getHealth(){
         return _health;

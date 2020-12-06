@@ -1,12 +1,24 @@
 package com.company;
 
+import java.util.ArrayList;
+
 import static org.junit.Assert.*;
 
 public class fightTest {
 
     @org.junit.Test
-    // make different characters in a character test call and then make a test fightTest class
     public void playFight() {
+        enemy Carl = new enemy("fighter","Carl",20,15);
+        follower Macey = new follower("fighter","Macey",20,15);
+        player Amelie = new player("Amelie");
+        ArrayList<Character> _testEnemyArray = new ArrayList<>();
+        ArrayList<Character> _testHeroArray = new ArrayList<>();
+        _testEnemyArray.add(Carl);
+        _testHeroArray.add(Amelie);
+        _testHeroArray.add(Macey);
+
+        fight testFight = new fight(_testHeroArray,_testEnemyArray);
+        testFight.playFight();
     }
 
     @org.junit.Test

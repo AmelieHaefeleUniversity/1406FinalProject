@@ -14,27 +14,35 @@ public class player extends Character {
 
     //TODO: finish getTarget
     public Character getTarget(ArrayList<Character> givenArray){
-        Scanner input = new Scanner(System.in);
+        Scanner input2 = new Scanner(System.in);
         while(true){
-            System.out.println("Who would you like to target?\n");
-            String targetName = input.nextLine();
+           System.out.println("Who would you like to target?\n");
+            String targetName = input2.nextLine();
             for (Character character : givenArray) {
                 String givenArrayName = character.getName();
                 if (targetName.equals(givenArrayName)) {
                     return character;
                 }
             }
-            System.out.println("Please enter a valid action\n");
+            System.out.println("Please enter a valid Target\n");
         }
 
     }
 
     public action getAction(ArrayList<Character> heroArray, ArrayList<Character> enemyArray, Character obj){
         Scanner input = new Scanner(System.in);
+        System.out.println("What action would you like to do?");
+        String actionName = input.nextLine();
+
+        if(enoughActionPoint(obj,_playerActionList.get(actionName))){
+            action chosenAction = _playerActionList.get(actionName);
+            return chosenAction;
+        }
 
         while (true){
+            System.out.println("Please enter a valid action\n");
             System.out.println("What action would you like to do?\n");
-            String actionName = input.nextLine();
+            actionName = input.nextLine();
             if (_playerActionList.containsKey(actionName)){
                 if(enoughActionPoint(obj,_playerActionList.get(actionName))){
                     return _playerActionList.get(actionName);
@@ -43,7 +51,6 @@ public class player extends Character {
                     System.out.println("Error not enough action points!");
                 }
             }
-          System.out.println("Please enter a valid action\n");
         }
     }
 

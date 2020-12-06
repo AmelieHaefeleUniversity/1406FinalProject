@@ -1,6 +1,6 @@
 package com.company;
 
-public class action extends actionList{
+public class action{
     private int _apCost;
     private String _actionType;
     private int _effect;
