@@ -5,7 +5,7 @@ import java.util.HashMap;
 public class actionList {
     public HashMap<String, action> getPlayerActions;
     private action fireball = new action(5,"harmful",-5,"health");
-    private action rest = new action(0,"neural",2,"actionPoints");
+    private action rest = new action(0,"neutral",2,"actionPoints");
     private action heal = new action(3,"helpful",4,"health");
     public HashMap<String, action> playerActions = new HashMap<String, action>();
     public HashMap<String, action> masterActionList = new HashMap<String, action>();
@@ -24,16 +24,16 @@ public class actionList {
     }
 
     public HashMap<String, action> getMasterActions(){
-        playerActions.put("fireball",fireball);
-        playerActions.put("rest",rest);
-        playerActions.put("heal",heal);
+        masterActionList.put("fireball",fireball);
+        masterActionList.put("rest",rest);
+        masterActionList.put("heal",heal);
         return masterActionList;
     }
 
     public HashMap<String, action> getNPCActions(){
-        playerActions.put("fireball",fireball);
-        playerActions.put("rest",rest);
-        playerActions.put("heal",heal);
+        NPCActionList.put("fireball",fireball);
+        NPCActionList.put("rest",rest);
+        NPCActionList.put("heal",heal);
         return NPCActionList;
     }
 }

@@ -72,11 +72,11 @@ public class fight {
             this._target = AlliedArray.get(i);
         }
         if (chosenActionType.equals("helpful")){
-            this._target = obj.getTarget(AlliedArray);
+            this._target = obj.getTarget(AlliedArray,MobArray,_action);
 
         }
         if (chosenActionType.equals("harmful")) {
-            this._target = obj.getTarget(MobArray);
+            this._target = obj.getTarget(AlliedArray,MobArray,_action);
         }
         _target.effect(_action, obj,_target);
 

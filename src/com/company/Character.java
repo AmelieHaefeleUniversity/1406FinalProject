@@ -16,16 +16,12 @@ public class Character {
         this._actionPoints = actionPoints;
     }
 
-    //TODO: create random int generator
     public int d20(){
         Random _random = new Random();
         return _random.nextInt(21);
-
     }
 
-    public void takeTurn(){
-    }
-    public Character getTarget(ArrayList<Character> _heroArray){
+    public Character getTarget(ArrayList<Character> teamArray, ArrayList<Character> oppositionArray, action givenAction){
        Character error = new Character("Error",-1,-2);
        return error;
     }
@@ -38,7 +34,8 @@ public class Character {
 
     public void effect(action chosenAction, Character doingAction, Character target){
         int ranInt = d20();
-        if(chosenAction.getActionType().equals("neutral")){
+        String currentActionType= chosenAction.getActionType();
+        if(currentActionType.equals("neutral")){
             System.out.println(doingAction.getName()+" rested and regained "+chosenAction.getEffect()+" "+chosenAction.getStatEffect());
             return;
         }
@@ -46,27 +43,29 @@ public class Character {
         if (ranInt >= 10) {
             if(chosenAction.getActionType().equals("harmful")){
                 System.out.println(doingAction.getName()+" rolled a "+ranInt+" hitting "+target.getName()+" for "+chosenAction.getEffect()+" "+chosenAction.getStatEffect());
+                return;
             }
             if(chosenAction.getActionType().equals("helpful")){
                 System.out.println(doingAction.getName()+" rolled a "+ranInt+" healing "+target.getName()+" for "+chosenAction.getEffect()+" "+chosenAction.getStatEffect());
+                return;
             }
-            else {
-                System.out.println("Error action type doesn't match");
-            }
-            return;
         }
         else{
             System.out.println(doingAction.getName()+" rolled a "+ranInt+" missing "+target.getName());
+            return;
         }
 
     }
 
-    public action getAction(ArrayList<Character> heroArray, ArrayList<Character> enemyArray, Character obj) {
+    public action getAction(ArrayList<Character> teamArray, ArrayList<Character> enemyArray, Character currentNPC) {
         return new action(5,"harmful",5,"health");
     }
 
     public boolean enoughActionPoint(Character currentCharacter, action currentAction){
-        return currentCharacter.getActionPoints() >= currentAction.getApCost();
+        int characterActionPoints = currentCharacter.getActionPoints();
+        int neededActionPoints = currentAction.getApCost();
+        boolean toBeReturned = characterActionPoints >= neededActionPoints;
+        return toBeReturned;
     }
 }
 

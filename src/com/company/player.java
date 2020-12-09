@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class player extends Character {
     actionList _objActionList = new actionList();
     public HashMap<String, action> _playerActionList;
+    private ArrayList<Character> _givenArray;
 
     public player(String name){
         super(name, 20, 15);
@@ -13,16 +14,23 @@ public class player extends Character {
     }
 
     //TODO: finish getTarget
-    public Character getTarget(ArrayList<Character> givenArray){
+    public Character getTarget(ArrayList<Character> teamArray, ArrayList<Character> oppositionArray, action givenAction){
+        if (givenAction.getActionType().equals("helpful")){
+            this._givenArray = teamArray;
+
+        }
+        if (givenAction.getActionType().equals("harmful")) {
+            this._givenArray = oppositionArray;
+        }
         System.out.println("Target List:\n");
-        for (int i = 0; i < givenArray.size(); i++){
-            System.out.println(givenArray.get(i).getName());
+        for (int i = 0; i < _givenArray.size(); i++){
+            System.out.println(_givenArray.get(i).getName());
         }
         Scanner input2 = new Scanner(System.in);
         while(true){
            System.out.println("\nWho would you like to target?\n");
             String targetName = input2.nextLine();
-            for (Character character : givenArray) {
+            for (Character character : _givenArray) {
                 String givenArrayName = character.getName();
                 if (targetName.equals(givenArrayName)) {
                     return character;

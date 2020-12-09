@@ -10,14 +10,11 @@ public class NPC extends Character{
 
     public NPC(String playStyle,String name, int health, int actionPoints){
         super(name,health,actionPoints);
-        this._NPCActionList = _objActionList.NPCActionList;
+        this._NPCActionList = _objActionList.getNPCActions();
         this._playStyle = playStyle;
     }
 
-
-
-
-    public action getTarget(ArrayList<Character> teamArray,Character currentNPC){
+    public action getAction(ArrayList<Character> teamArray, ArrayList<Character> enemyArray, Character currentNPC){
         if (_playStyle.equals("healer")){
             return getHealerAction(teamArray, currentNPC);
         }
@@ -60,6 +57,7 @@ public class NPC extends Character{
 
     }
 
+
     public Character getTarget(ArrayList<Character> teamArray, ArrayList<Character> oppositionArray, action givenAction){
         if (_playStyle.equals("healer")){
             return getHealerTarget(teamArray, oppositionArray,givenAction );
@@ -70,7 +68,9 @@ public class NPC extends Character{
         if (_playStyle.equals("spellCaster")){
             return getSpellCasterTarget(oppositionArray);
         }
-        return null;
+        else{
+            return null;
+        }
     }
     protected Character getHealerTarget(ArrayList<Character> teamArray, ArrayList<Character> oppositionArray, action givenAction) {
         if (givenAction.toString().equals("heal")){
