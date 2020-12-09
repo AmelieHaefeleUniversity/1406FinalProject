@@ -24,11 +24,12 @@ public class fight {
     public boolean playFight() {
         boolean _play = true;
         while (_play) {
+            //For loops don't work if there's only one item in the array list
             for (int i = 0; i< _heroArray.size(); i++){
                 // Checks if the player has won
                 //always pass in the player first so this can be checked
                 //TODO: Check if you make _enemy Array null or the size equal to zero when you remove all objects inside it
-                if (_enemyArray.size() == 0) {
+                if (_heroArray.size() == 0) {
                     return true;
                 }
 
@@ -36,10 +37,10 @@ public class fight {
                 if (_heroArray.get(0) == null) {
                     return false;
                 }
-                heroTurn(i);
+                Turn(_heroArray,_enemyArray,i);
 
             }
-            for (int i = 0; i< _enemyArray.size(); i++){
+            for (int j = 0; j< _enemyArray.size(); j++){
                 // Checks if the player has won
                 //always pass in the player first so this can be checked
                 if (_enemyArray.size() == 0) {
@@ -50,64 +51,38 @@ public class fight {
                 if (_heroArray.get(0) == null) {
                     return false;
                 }
-                enemyTurn(i);
-
+                Turn(_enemyArray,_heroArray,j);
             }
-
-
         }
         return false;
     }
-    private void heroTurn(int i){
+
+    private void Turn(ArrayList<Character> AlliedArray , ArrayList<Character> MobArray, int i){
         // Sets the current character to get info from, so they can have their turn
-        Character obj = _heroArray.get(i);
+        Character obj = AlliedArray.get(i);
 
         // Checks if the current Character is dead, if so they are removed from the array of possible characters
         if (!checkDead(obj,i)){
             return;
         }
-        this._action = obj.getAction(_heroArray,_enemyArray,obj);
+        this._action = obj.getAction(AlliedArray,MobArray,obj);
         String chosenActionType = _action.getActionType();
         if (chosenActionType.equals("neural")){
             //set target as current persons turn
-            this._target = _heroArray.get(i);
+            this._target = AlliedArray.get(i);
         }
         if (chosenActionType.equals("helpful")){
-            this._target = obj.getTarget(_heroArray);
+            this._target = obj.getTarget(AlliedArray);
 
         }
         if (chosenActionType.equals("harmful")) {
-            this._target = obj.getTarget(_enemyArray);
+            this._target = obj.getTarget(MobArray);
         }
-        _target.effect(_action);
-
-    }
-    private void enemyTurn (int i){
-        // Sets the current character to get info from, so they can have their turn
-        Character obj = _enemyArray.get(i);
-
-        // Checks if the current Character is dead, if so they are removed from the array of possible characters
-        if (!checkDead(obj,i)){
-            return;
-        }
-        this._action = obj.getAction(_enemyArray, _heroArray, obj);
-        String chosenActionType = _action.getActionType();;
-        if (chosenActionType.equals("neural")){
-            //set target as current persons turn
-            this._target = _enemyArray.get(i);
-        }
-        if (chosenActionType.equals("helpful")){
-            //this.target = obj.getTarget(_enemyArray)
-
-        }
-        if (chosenActionType.equals("harmful")) {
-            //this.target = obj.getTarget(_heroArray)
-        }
-        _target.effect(_action);
+        _target.effect(_action, obj,_target);
 
     }
 
-    private boolean checkDead(Character obj, int i){
+    public boolean checkDead(Character obj, int i){
         // Checks if the current character is dead
         if (obj.getHealth() <= 0){
             _charactersInFight.remove(i);

@@ -14,9 +14,13 @@ public class player extends Character {
 
     //TODO: finish getTarget
     public Character getTarget(ArrayList<Character> givenArray){
+        System.out.println("Target List:\n");
+        for (int i = 0; i < givenArray.size(); i++){
+            System.out.println(givenArray.get(i).getName());
+        }
         Scanner input2 = new Scanner(System.in);
         while(true){
-           System.out.println("Who would you like to target?\n");
+           System.out.println("\nWho would you like to target?\n");
             String targetName = input2.nextLine();
             for (Character character : givenArray) {
                 String givenArrayName = character.getName();
@@ -30,8 +34,18 @@ public class player extends Character {
     }
 
     public action getAction(ArrayList<Character> heroArray, ArrayList<Character> enemyArray, Character obj){
+        System.out.println("Action List:\n");
+        for (String actionName: _playerActionList.keySet() ){
+            action currentAction = _playerActionList.get(actionName);
+            int currentActionPointCost = currentAction.getApCost();
+            int currentEffect = currentAction.getEffect();
+            String currentActionType = currentAction.getActionType();
+            String currentStatEffected = currentAction.getActionType();
+            actionName  = actionName.substring(0, 1).toUpperCase() + actionName.substring(1);
+            System.out.println(actionName +"\nAction Point Cost:"+currentActionPointCost+" \tAction Type:"+currentActionType+" \tAction Effect:"+currentEffect+" \tStat Effected:"+currentStatEffected+"\n");
+        }
         Scanner input = new Scanner(System.in);
-        System.out.println("What action would you like to do?");
+        System.out.println("\nWhat action would you like to do?\n");
         String actionName = input.nextLine();
 
         if(enoughActionPoint(obj,_playerActionList.get(actionName))){

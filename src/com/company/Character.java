@@ -1,5 +1,5 @@
 package com.company;
-
+import java.util.Random;
 import java.util.ArrayList;
 
 public class Character {
@@ -16,6 +16,12 @@ public class Character {
         this._actionPoints = actionPoints;
     }
 
+    //TODO: create random int generator
+    public int d20(){
+        Random _random = new Random();
+        return _random.nextInt(21);
+
+    }
 
     public void takeTurn(){
     }
@@ -27,14 +33,30 @@ public class Character {
         return _health;
     }
     public String getName(){return _name;}
+
     public int getActionPoints(){return _actionPoints;}
 
-    public void effect(action chosenAction){
-        if (chosenAction.getStatEffect().equals("health")){
-            this._health = _health + chosenAction.getEffect();
+    public void effect(action chosenAction, Character doingAction, Character target){
+        int ranInt = d20();
+        if(chosenAction.getActionType().equals("neutral")){
+            System.out.println(doingAction.getName()+" rested and regained "+chosenAction.getEffect()+" "+chosenAction.getStatEffect());
+            return;
         }
-        if (chosenAction.getStatEffect().equals("actionPoints")){
-            this._actionPoints = _actionPoints + chosenAction.getEffect();
+
+        if (ranInt >= 10) {
+            if(chosenAction.getActionType().equals("harmful")){
+                System.out.println(doingAction.getName()+" rolled a "+ranInt+" hitting "+target.getName()+" for "+chosenAction.getEffect()+" "+chosenAction.getStatEffect());
+            }
+            if(chosenAction.getActionType().equals("helpful")){
+                System.out.println(doingAction.getName()+" rolled a "+ranInt+" healing "+target.getName()+" for "+chosenAction.getEffect()+" "+chosenAction.getStatEffect());
+            }
+            else {
+                System.out.println("Error action type doesn't match");
+            }
+            return;
+        }
+        else{
+            System.out.println(doingAction.getName()+" rolled a "+ranInt+" missing "+target.getName());
         }
 
     }
