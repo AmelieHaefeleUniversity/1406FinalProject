@@ -37,6 +37,7 @@ public class Character {
         String currentActionType= chosenAction.getActionType();
         if(currentActionType.equals("neutral")){
             System.out.println(doingAction.getName()+" rested and regained "+chosenAction.getEffect()+" "+chosenAction.getStatEffect());
+
             return;
         }
 

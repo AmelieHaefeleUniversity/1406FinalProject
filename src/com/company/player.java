@@ -24,12 +24,14 @@ public class player extends Character {
         }
         System.out.println("Target List:\n");
         for (int i = 0; i < _givenArray.size(); i++){
-            System.out.println(_givenArray.get(i).getName());
+            String target = _givenArray.get(i).getName();
+            target = target.substring(0, 1).toUpperCase() + target.substring(1);
+            System.out.println(target);
         }
         Scanner input2 = new Scanner(System.in);
         while(true){
            System.out.println("\nWho would you like to target?\n");
-            String targetName = input2.nextLine();
+            String targetName = input2.nextLine().toLowerCase();
             for (Character character : _givenArray) {
                 String givenArrayName = character.getName();
                 if (targetName.equals(givenArrayName)) {
@@ -53,26 +55,20 @@ public class player extends Character {
             System.out.println(actionName +"\nAction Point Cost:"+currentActionPointCost+" \tAction Type:"+currentActionType+" \tAction Effect:"+currentEffect+" \tStat Effected:"+currentStatEffected+"\n");
         }
         Scanner input = new Scanner(System.in);
-        System.out.println("\nWhat action would you like to do?\n");
-        String actionName = input.nextLine();
 
-        if(enoughActionPoint(obj,_playerActionList.get(actionName))){
-            action chosenAction = _playerActionList.get(actionName);
-            return chosenAction;
-        }
-
-        while (true){
-            System.out.println("Please enter a valid action\n");
-            System.out.println("What action would you like to do?\n");
-            actionName = input.nextLine();
-            if (_playerActionList.containsKey(actionName)){
+        while(true){
+            System.out.println("\nWhat action would you like to do?\n");
+            String actionName = input.nextLine().toLowerCase();
+            if(_playerActionList.get(actionName) != null){
                 if(enoughActionPoint(obj,_playerActionList.get(actionName))){
-                    return _playerActionList.get(actionName);
+                    action chosenAction = _playerActionList.get(actionName);
+                    return chosenAction;
                 }
                 else{
                     System.out.println("Error not enough action points!");
                 }
             }
+            System.out.println("Please enter a valid action\n");
         }
     }
 

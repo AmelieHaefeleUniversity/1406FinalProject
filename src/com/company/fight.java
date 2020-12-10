@@ -26,11 +26,12 @@ public class fight {
         while (_play) {
             //For loops don't work if there's only one item in the array list
             printCharacterStats();
+            checkDeadPlayers();
             for (int i = 0; i< _heroArray.size(); i++){
                 // Checks if the player has won
                 //always pass in the player first so this can be checked
                 //TODO: Check if you make _enemy Array null or the size equal to zero when you remove all objects inside it
-                if (_heroArray.size() == 0) {
+                if (_enemyArray.size() == 0) {
                     return true;
                 }
 
@@ -41,6 +42,7 @@ public class fight {
                 Turn(_heroArray,_enemyArray,i);
 
             }
+            checkDeadPlayers();
             for (int j = 0; j< _enemyArray.size(); j++){
                 // Checks if the player has won
                 //always pass in the player first so this can be checked
@@ -56,6 +58,12 @@ public class fight {
             }
         }
         return false;
+    }
+    private void checkDeadPlayers(){
+        for(int i = 0; i <_charactersInFight.size(); i++){
+            Character obj = _charactersInFight.get(i);
+            checkDead(obj,i);
+        }
     }
 
     private void Turn(ArrayList<Character> AlliedArray , ArrayList<Character> MobArray, int i){
@@ -86,8 +94,6 @@ public class fight {
     public boolean checkDead(Character obj, int i){
         // Checks if the current character is dead
         if (obj.getHealth() <= 0){
-            _charactersInFight.remove(i);
-            // removes the character from their original array so it can be properly passed into the chosen getTarget Array
             if (_heroArray.contains(obj)){
                 _heroArray.remove(obj);
             }
@@ -118,8 +124,14 @@ public class fight {
     }
 
     public void printCharacterStats(){
-        for ( int i = 0; i < _charactersInFight.size();i++){
-            System.out.println(_charactersInFight.get(i).getName()+":\tHealth:"+_charactersInFight.get(i).getHealth()+"\tAction Points:"+_charactersInFight.get(i).getActionPoints());
+        System.out.println("\nYour Team:");
+        for (int i = 0; i< _heroArray.size(); i++) {
+            System.out.println(_heroArray.get(i).getName().substring(0, 1).toUpperCase() + _heroArray.get(i).getName().substring(1)+":\tHealth:"+_heroArray.get(i).getHealth()+"\tAction Points:"+_heroArray.get(i).getActionPoints());
+        }
+
+        System.out.println("\nEnemy Team:");
+        for (int j = 0; j< _enemyArray.size(); j++){
+            System.out.println(_enemyArray.get(j).getName().substring(0, 1).toUpperCase() + _enemyArray.get(j).getName().substring(1)+":\tHealth:"+_enemyArray.get(j).getHealth()+"\tAction Points:"+_enemyArray.get(j).getActionPoints());
         }
     }
 }
