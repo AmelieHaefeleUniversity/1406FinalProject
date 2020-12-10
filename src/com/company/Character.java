@@ -63,13 +63,16 @@ public class Character {
         return new action(5,"harmful",5,"health");
     }
 
+    //removes action points here
     public boolean enoughActionPoint(Character currentCharacter, action currentAction){
-        int characterActionPoints = currentCharacter.getActionPoints();
-        int neededActionPoints = currentAction.getApCost();
-        boolean toBeReturned = characterActionPoints >= neededActionPoints;
-        return toBeReturned;
+        if(currentCharacter.getActionPoints() >= currentAction.getApCost()){
+            this._actionPoints = _actionPoints - currentAction.getApCost();
+        }
+        return currentCharacter.getActionPoints() >= currentAction.getApCost();
+
     }
 
+    //removes stats caused by actions here
     public void effectCharacter(action chosenAction) {
         if(chosenAction.getStatEffect().equals("health")){
             this._health = _health + chosenAction.getEffect();
