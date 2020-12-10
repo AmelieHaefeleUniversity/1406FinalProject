@@ -25,6 +25,7 @@ public class fight {
         boolean _play = true;
         while (_play) {
             //For loops don't work if there's only one item in the array list
+            printCharacterStats();
             for (int i = 0; i< _heroArray.size(); i++){
                 // Checks if the player has won
                 //always pass in the player first so this can be checked
@@ -114,6 +115,12 @@ public class fight {
             j++;
         }
         return result;
+    }
+
+    public void printCharacterStats(){
+        for ( int i = 0; i < _charactersInFight.size();i++){
+            System.out.println(_charactersInFight.get(i).getName()+":\tHealth:"+_charactersInFight.get(i).getHealth()+"\tAction Points:"+_charactersInFight.get(i).getActionPoints());
+        }
     }
 }
 

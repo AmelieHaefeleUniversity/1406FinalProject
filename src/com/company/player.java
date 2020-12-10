@@ -42,7 +42,7 @@ public class player extends Character {
     }
 
     public action getAction(ArrayList<Character> heroArray, ArrayList<Character> enemyArray, Character obj){
-        System.out.println("Action List:\n");
+        System.out.println("\nAction List:\n");
         for (String actionName: _playerActionList.keySet() ){
             action currentAction = _playerActionList.get(actionName);
             int currentActionPointCost = currentAction.getApCost();
