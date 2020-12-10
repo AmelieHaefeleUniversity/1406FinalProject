@@ -67,6 +67,7 @@ public class Character {
     public boolean enoughActionPoint(Character currentCharacter, action currentAction){
         if(currentCharacter.getActionPoints() >= currentAction.getApCost()){
             this._actionPoints = _actionPoints - currentAction.getApCost();
+            return true;
         }
         return currentCharacter.getActionPoints() >= currentAction.getApCost();
 

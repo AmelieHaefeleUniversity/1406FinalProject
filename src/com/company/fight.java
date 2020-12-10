@@ -59,7 +59,7 @@ public class fight {
                 Turn(_enemyArray,_heroArray,j);
             }
         }
-        System.out.println("Error this point should not be reached");
+        System.out.println("Error this point should not be read");
         return false;
     }
     private void checkDeadPlayers(){
@@ -79,7 +79,7 @@ public class fight {
         }
         this._action = obj.getAction(AlliedArray,MobArray,obj);
         String chosenActionType = _action.getActionType();
-        if (chosenActionType.equals("neural")){
+        if (chosenActionType.equals("neutral")){
             //set target as current persons turn
             this._target = AlliedArray.get(i);
         }
