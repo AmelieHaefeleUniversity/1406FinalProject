@@ -25,18 +25,30 @@ public class fight {
         boolean _play = true;
         while (_play) {
             checkDeadPlayers();
+            // Checks if someone won
+            if (_enemyArray.size() == 0) {
+                System.out.println("Congrats you won!");
+                return true;
+            }
+
+            // Checks if the player got removed "dead"
+            if (_heroArray.get(0) == null) {
+                System.out.println("You lost better luck next time");
+                return false;
+            }
             //For loops don't work if there's only one item in the array list
             printCharacterStats();
             for (int i = 0; i< _heroArray.size(); i++){
-                // Checks if the player has won
                 //always pass in the player first so this can be checked
-                //TODO: Check if you make _enemy Array null or the size equal to zero when you remove all objects inside it
+                // Checks if someone won
                 if (_enemyArray.size() == 0) {
+                    System.out.println("Congrats you won!");
                     return true;
                 }
 
                 // Checks if the player got removed "dead"
                 if (_heroArray.get(0) == null) {
+                    System.out.println("You lost better luck next time");
                     return false;
                 }
                 Turn(_heroArray,_enemyArray,i);
