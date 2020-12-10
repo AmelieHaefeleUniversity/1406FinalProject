@@ -24,9 +24,9 @@ public class fight {
     public boolean playFight() {
         boolean _play = true;
         while (_play) {
+            checkDeadPlayers();
             //For loops don't work if there's only one item in the array list
             printCharacterStats();
-            checkDeadPlayers();
             for (int i = 0; i< _heroArray.size(); i++){
                 // Checks if the player has won
                 //always pass in the player first so this can be checked
@@ -47,16 +47,19 @@ public class fight {
                 // Checks if the player has won
                 //always pass in the player first so this can be checked
                 if (_enemyArray.size() == 0) {
+                    System.out.println("Congrats you won!");
                     return true;
                 }
 
                 // Checks if the player got removed "dead"
                 if (_heroArray.get(0) == null) {
+                    System.out.println("You lost better luck next time");
                     return false;
                 }
                 Turn(_enemyArray,_heroArray,j);
             }
         }
+        System.out.println("Error this point should not be reached");
         return false;
     }
     private void checkDeadPlayers(){

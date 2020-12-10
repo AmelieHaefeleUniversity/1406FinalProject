@@ -36,12 +36,13 @@ public class Character {
         int ranInt = d20();
         String currentActionType= chosenAction.getActionType();
         if(currentActionType.equals("neutral")){
+            effectCharacter(chosenAction);
             System.out.println(doingAction.getName()+" rested and regained "+chosenAction.getEffect()+" "+chosenAction.getStatEffect());
-
             return;
         }
 
         if (ranInt >= 10) {
+            effectCharacter(chosenAction);
             if(chosenAction.getActionType().equals("harmful")){
                 System.out.println(doingAction.getName()+" rolled a "+ranInt+" hitting "+target.getName()+" for "+chosenAction.getEffect()+" "+chosenAction.getStatEffect());
                 return;
@@ -67,6 +68,15 @@ public class Character {
         int neededActionPoints = currentAction.getApCost();
         boolean toBeReturned = characterActionPoints >= neededActionPoints;
         return toBeReturned;
+    }
+
+    public void effectCharacter(action chosenAction) {
+        if(chosenAction.getStatEffect().equals("health")){
+            this._health = _health + chosenAction.getEffect();
+        }
+        if(chosenAction.getStatEffect().equals("actionPoints")){
+            this._actionPoints = _actionPoints + chosenAction.getEffect();
+        }
     }
 }
 

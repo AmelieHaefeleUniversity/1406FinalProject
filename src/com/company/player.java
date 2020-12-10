@@ -72,6 +72,13 @@ public class player extends Character {
         }
     }
 
-
-
+    //@Override
+    //public void effectCharacter(action chosenAction) {
+        //if(chosenAction.getStatEffect().equals("health")){
+          //  this._health = _health + chosenAction.getEffect();
+       // }
+       // if(chosenAction.getStatEffect().equals("actionPoints")){
+         //   this._actionPoints = _actionPoints + chosenAction.getEffect();
+       // }
+   // }
 }
