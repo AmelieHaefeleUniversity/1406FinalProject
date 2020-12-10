@@ -17,8 +17,9 @@ public class Character {
     }
 
     public int d20(){
-        Random _random = new Random();
-        return _random.nextInt(21);
+        //Random _random = new Random();
+        //return _random.nextInt(21);
+        return 10;
     }
 
     public Character getTarget(ArrayList<Character> teamArray, ArrayList<Character> oppositionArray, action givenAction){
@@ -43,11 +44,11 @@ public class Character {
 
         if (ranInt >= 10) {
             effectCharacter(chosenAction);
-            if(chosenAction.getActionType().equals("harmful")){
+            if(currentActionType.equals("harmful")){
                 System.out.println(doingAction.getName()+" rolled a "+ranInt+" hitting "+target.getName()+" for "+chosenAction.getEffect()+" "+chosenAction.getStatEffect());
                 return;
             }
-            if(chosenAction.getActionType().equals("helpful")){
+            if(currentActionType.equals("helpful")){
                 System.out.println(doingAction.getName()+" rolled a "+ranInt+" healing "+target.getName()+" for "+chosenAction.getEffect()+" "+chosenAction.getStatEffect());
                 return;
             }

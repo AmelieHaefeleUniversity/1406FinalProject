@@ -73,7 +73,7 @@ public class NPC extends Character{
         }
     }
     protected Character getHealerTarget(ArrayList<Character> teamArray, ArrayList<Character> oppositionArray, action givenAction) {
-        if (givenAction.toString().equals("heal")){
+        if (givenAction.getActionType().equals("helpful")){
            return lowestHealth(teamArray);
         }
         else{
