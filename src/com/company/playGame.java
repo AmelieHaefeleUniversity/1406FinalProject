@@ -4,11 +4,11 @@ import java.util.ArrayList;
 
 public class playGame {
     public String _playerName;
-    private ArrayList<enemy> _fightOne;
-    private ArrayList<enemy> _fightTwo;
-    private ArrayList<enemy> _fightThree;
-    private ArrayList<Character> _playerTeam;
-    private ArrayList<ArrayList> _fights;
+    private ArrayList<enemy> _fightOne= new ArrayList<enemy>();
+    private ArrayList<enemy> _fightTwo= new ArrayList<enemy>();
+    private ArrayList<enemy> _fightThree= new ArrayList<enemy>();
+    private ArrayList<Character> _playerTeam= new ArrayList<Character>();
+    private ArrayList<ArrayList> _fights= new ArrayList<ArrayList>();
     private player _playerCharacter;
 
     public playGame(String playerName){
@@ -23,8 +23,11 @@ public class playGame {
         printMethod.printRule();
         printMethod.printIntro();
         for(int i = 0; i < _fights.size();i++){
+            if (i == 2){
+                _playerCharacter.addHopeSword();
+            }
             fightHappening = true;
-            while(true){
+            while(fightHappening){
                 printMethod.printFightIntro(i);
                 fight fightSetUp = new fight(_playerTeam,_fights.get(i));
                 if (!fightSetUp.playFight()){
@@ -37,9 +40,10 @@ public class playGame {
                 else {
                     fightHappening = false;
                 }
-                if(_playerCharacter.getExperiencePoints() >= 100)
-                for(int j = 0; j < _playerTeam.size();i++){
-                    _playerTeam.get(i).levelUp();
+                int ep = _playerCharacter.getExperiencePoints();
+                if(ep >= 100)
+                for(int j = 0; j < _playerTeam.size();j++){
+                    _playerTeam.get(j).levelUp();
                 }
             }
 
@@ -62,15 +66,15 @@ public class playGame {
     }
 
     public void setNPC(){
-        enemy alastair = new enemy("fighter","Alastair",15,10,1);
-        enemy prescott = new enemy("spellCaster","Prescott",10,15,1);
+        enemy alastair = new enemy("fighter","alastair",15,10,1);
+        enemy prescott = new enemy("spellCaster","prescott",15,15,1);
 
         _fightOne.add(0,alastair);
         _fightOne.add(1,prescott);
 
-        enemy fluffy = new enemy("healer","Fluffy",15,20,2);
-        enemy hoppy = new enemy("spellCaster","Hoppy",10,20,2);
-        enemy cinnabun = new enemy("fighter","Cinnabun",20,10,2);
+        enemy fluffy = new enemy("healer","fluffy",15,20,2);
+        enemy hoppy = new enemy("spellCaster","hoppy",10,20,2);
+        enemy cinnabun = new enemy("fighter","cinnabun",20,10,2);
 
         _fightTwo.add(0,fluffy);
         _fightTwo.add(1,hoppy);
@@ -79,10 +83,11 @@ public class playGame {
         enemy officium = new enemy("spellCaster","officium",50,20,5);
         _fightThree.add(0,officium);
 
-        follower peter = new follower("healer","Peter",20,15);
-        follower danielle = new follower("fighter","Danielle",20,15);
+        follower peter = new follower("healer","peter",20,15);
+        follower danielle = new follower("fighter","danielle",20,15);
         player playerCharacter = new player(_playerName);
         _playerTeam.add(0, playerCharacter);
+        this._playerCharacter = playerCharacter;
         _playerTeam.add(1,peter);
         _playerTeam.add(2,danielle);
 

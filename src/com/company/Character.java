@@ -98,6 +98,7 @@ public class Character {
     }
     public void levelUp(){}
     public void increaseExperiencePoints(){}
+    public void addHopeSword(){}
 }
 
 

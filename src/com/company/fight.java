@@ -83,6 +83,7 @@ public class fight {
 
     private void Turn(ArrayList<Character> AlliedArray , ArrayList<Character> MobArray, int i){
         // Sets the current character to get info from, so they can have their turn
+        checkDeadPlayers();
         Character obj = AlliedArray.get(i);
 
         // Checks if the current Character is dead, if so they are removed from the array of possible characters

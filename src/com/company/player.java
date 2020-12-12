@@ -11,7 +11,7 @@ public class player extends Character {
     public player(String name){
         super(name, 20, 15);
         _playerActionList = _objActionList.getPlayerActions();
-        this._experiencePoints = 0;
+        this._experiencePoints = 100;
     }
 
     //TODO: finish getTarget
@@ -74,6 +74,7 @@ public class player extends Character {
     public void levelUp(){
         this._level = _level +1;
         this._experiencePoints = 0;
+        levelLootSystem(_level);
         Scanner input = new Scanner(System.in);
         while(true){
             System.out.println("Would you like to increase you overall health or action points by 5?\n");
@@ -110,6 +111,10 @@ public class player extends Character {
     }
     public int getExperiencePoints(){
         return _experiencePoints;
+    }
+    public void addHopeSword(){
+        action hopeSword = new action(2,"harmful",-10,"health");
+        _playerActionList.put("Hope Sword",hopeSword);
     }
 
 }
