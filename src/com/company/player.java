@@ -14,7 +14,6 @@ public class player extends Character {
         this._experiencePoints = 0;
     }
 
-    //TODO: finish getTarget
     public Character getTarget(ArrayList<Character> teamArray, ArrayList<Character> oppositionArray, action givenAction){
         if (givenAction.getActionType().equals("helpful")){
             this._givenArray = teamArray;

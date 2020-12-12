@@ -9,7 +9,6 @@ public class Character {
     protected int _healthCap;
     protected int _actionPointCap;
     public int _level;
-    //public HashMap<String, action> _actionList = new HashMap<String, action>();
 
     public Character(String name, int health, int actionPoints){
         this._name = name;
@@ -26,8 +25,7 @@ public class Character {
     }
 
     public Character getTarget(ArrayList<Character> teamArray, ArrayList<Character> oppositionArray, action givenAction){
-       Character error = new Character("Error",-1,-2);
-       return error;
+        return new Character("Error",-1,-2);
     }
     public int getHealth(){
         return _health;

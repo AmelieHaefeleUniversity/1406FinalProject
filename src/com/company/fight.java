@@ -15,7 +15,6 @@ public class fight {
         this._charactersInFight = addLists(heroArray, enemyArray);
     }
 
-    //TODO: deep copy the hero Lists and full heal them after every fight so you can remove them from the list of possible targets
     public boolean playFight() {
         boolean _play = true;
         while (_play) {
