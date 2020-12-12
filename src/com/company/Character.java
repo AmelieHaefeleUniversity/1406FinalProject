@@ -8,12 +8,18 @@ public class Character {
     protected int _actionPoints;
     protected int _numCharacter;
     private Character[] characterArray = new Character[_numCharacter];
+    protected int _healthCap;
+    protected int _actionPointCap;
+    public int _level;
     //public HashMap<String, action> _actionList = new HashMap<String, action>();
 
     public Character(String name, int health, int actionPoints){
         this._name = name;
         this._health = health;
         this._actionPoints = actionPoints;
+        this._healthCap = health;
+        this._actionPointCap = actionPoints;
+        this._level = 1;
     }
 
     public int d20(){
@@ -61,7 +67,7 @@ public class Character {
     }
 
     public action getAction(ArrayList<Character> teamArray, ArrayList<Character> enemyArray, Character currentNPC) {
-        return new action(5,"harmful",5,"health");
+        return new action(0,"harmful",0,"health");
     }
 
     //removes action points here
@@ -78,10 +84,20 @@ public class Character {
     public void effectCharacter(action chosenAction) {
         if(chosenAction.getStatEffect().equals("health")){
             this._health = _health + chosenAction.getEffect();
+            if (_health > _healthCap){
+                this._health = _healthCap;
+            }
         }
         if(chosenAction.getStatEffect().equals("actionPoints")){
             this._actionPoints = _actionPoints + chosenAction.getEffect();
+            if (_actionPoints > _actionPointCap){
+                this._actionPoints = _actionPointCap;
+            }
         }
+    }
+
+    public void levelUp(){
+
     }
 }
 

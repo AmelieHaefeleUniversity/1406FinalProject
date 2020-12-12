@@ -43,8 +43,8 @@ public class NPC extends Character{
     }
     protected action getFighterAction(Character currentNPC){
         // change to melee attack that costs less Action Points
-        if (enoughActionPoint(currentNPC,_NPCActionList.get("fireball"))){
-            return _NPCActionList.get("fireball");
+        if (enoughActionPoint(currentNPC,_NPCActionList.get("stab"))){
+            return _NPCActionList.get("stab");
         }
         return _NPCActionList.get("rest");
 
@@ -86,10 +86,7 @@ public class NPC extends Character{
         return lowestHealth(oppositionArray);
     }
 
-    protected Character getSpellCasterTarget(ArrayList<Character> oppositionArray) {
-        return highestHealth(oppositionArray);
-
-    }
+    protected Character getSpellCasterTarget(ArrayList<Character> oppositionArray) { return highestHealth(oppositionArray); }
 
     public Character lowestHealth( ArrayList<Character> givenArray){
         Character lowestHealthNPC = givenArray.get(0);
