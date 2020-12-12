@@ -51,10 +51,12 @@ public class Character {
             effectCharacter(chosenAction);
             if(currentActionType.equals("harmful")){
                 System.out.println(doingAction.getName()+" rolled a "+ranInt+" hitting "+target.getName()+" for "+chosenAction.getEffect()+" "+chosenAction.getStatEffect());
+                increaseExperiencePoints();
                 return;
             }
             if(currentActionType.equals("helpful")){
                 System.out.println(doingAction.getName()+" rolled a "+ranInt+" healing "+target.getName()+" for "+chosenAction.getEffect()+" "+chosenAction.getStatEffect());
+                increaseExperiencePoints();
                 return;
             }
         }
@@ -94,10 +96,8 @@ public class Character {
             }
         }
     }
-
-    public void levelUp(){
-
-    }
+    public void levelUp(){}
+    public void increaseExperiencePoints(){}
 }
 
 

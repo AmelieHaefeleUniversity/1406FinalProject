@@ -11,6 +11,8 @@ public class actionList {
     public HashMap<String, action> playerActions = new HashMap<String, action>();
     public HashMap<String, action> masterActionList = new HashMap<String, action>();
     public HashMap<String, action> NPCActionList = new HashMap<String, action>();
+    private action firework = new action(3,"harmful",-6,"health");
+    private action examsOver = new action(0,"helpful",5,"actionPoints");
 
     //TODO: finish making action lists for the player, followers, and enemies, unlockable actions
     //TODO: CREATE A MASTER LIST OF ALL ACTIONS THAT THE FIGHT CLASS CAN REFERENCE

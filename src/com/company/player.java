@@ -6,11 +6,12 @@ public class player extends Character {
     actionList _objActionList = new actionList();
     public HashMap<String, action> _playerActionList;
     private ArrayList<Character> _givenArray;
+    private int _experiencePoints;
 
     public player(String name){
         super(name, 20, 15);
         _playerActionList = _objActionList.getPlayerActions();
-
+        this._experiencePoints = 0;
     }
 
     //TODO: finish getTarget
@@ -91,7 +92,21 @@ public class player extends Character {
 
         }
 
+    }
+    public void levelLootSystem (int level){
+        if (level == 2){
+            action firework = new action(3,"harmful",-6,"health");
+            _playerActionList.put("firework",firework);
+        }
+        if(level == 3) {
+            action examsOver = new action(0, "helpful", 5, "actionPoints");
+            _playerActionList.put("exams over", examsOver);
+        }
 
+    }
+
+    public void increaseExperiencePoints(){
+        this._experiencePoints = _experiencePoints + 20;
     }
 
 }
