@@ -28,10 +28,10 @@ public class player extends Character {
             target = target.substring(0, 1).toUpperCase() + target.substring(1);
             System.out.println(target);
         }
-        Scanner input2 = new Scanner(System.in);
+        Scanner input = new Scanner(System.in);
         while(true){
            System.out.println("\nWho would you like to target?\n");
-            String targetName = input2.nextLine().toLowerCase();
+            String targetName = input.nextLine().toLowerCase();
             for (Character character : _givenArray) {
                 String givenArrayName = character.getName();
                 if (targetName.equals(givenArrayName)) {
@@ -69,6 +69,29 @@ public class player extends Character {
             }
             System.out.println("Please enter a valid action\n");
         }
+    }
+    public void levelUp(){
+        this._level = _level +1;
+
+        Scanner input = new Scanner(System.in);
+        while(true){
+            System.out.println("Would you like to increase you overall health or action points by 5?\n");
+            String toIncrease = input.nextLine().toLowerCase();
+            if(toIncrease.equals("health")){
+                this._healthCap = _healthCap + 5;
+                this._health = _healthCap;
+                return;
+            }
+            if(toIncrease.equals("action points")){
+                this._actionPointCap = _actionPointCap +5;
+                this._actionPoints = _actionPointCap;
+                return;
+            }
+            System.out.println("Please enter a valid stat to increase, for example input (health or action points)");
+
+        }
+
+
     }
 
 }

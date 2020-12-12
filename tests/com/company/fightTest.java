@@ -8,7 +8,7 @@ public class fightTest {
 
     @org.junit.Test
     public void playFight() {
-        enemy Carl = new enemy("fighter","Carl",20,15);
+        enemy Carl = new enemy("fighter","Carl",20,15,1);
         follower Macey = new follower("fighter","Macey",20,15);
         player Amelie = new player("Amelie");
         ArrayList<Character> _testEnemyArray = new ArrayList<>();
@@ -16,9 +16,10 @@ public class fightTest {
         _testEnemyArray.add(Carl);
         _testHeroArray.add(Amelie);
         _testHeroArray.add(Macey);
+        Amelie.levelUp();
 
-        fight testFight = new fight(_testHeroArray,_testEnemyArray);
-        testFight.playFight();
+        //fight testFight = new fight(_testHeroArray,_testEnemyArray);
+        //testFight.playFight();
     }
 
     @org.junit.Test

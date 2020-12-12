@@ -8,6 +8,7 @@ public class NPC extends Character{
     public HashMap<String, action> _NPCActionList;
     actionList _objActionList = new actionList();
 
+
     public NPC(String playStyle,String name, int health, int actionPoints){
         super(name,health,actionPoints);
         this._NPCActionList = _objActionList.getNPCActions();
@@ -110,6 +111,18 @@ public class NPC extends Character{
             }
         }
         return highestHealthNPC;
+    }
+
+    public void levelUp(){
+        if (_level % 2 == 0){
+            this._healthCap = _healthCap +5;
+            this._health = _healthCap;
+        }
+        else {
+            this._actionPointCap = _actionPointCap +5;
+            this._actionPoints = _actionPointCap;
+        }
+        this._level = _level+1;
     }
 }
 

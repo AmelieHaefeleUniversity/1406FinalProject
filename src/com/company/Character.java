@@ -23,9 +23,8 @@ public class Character {
     }
 
     public int d20(){
-        //Random _random = new Random();
-        //return _random.nextInt(21);
-        return 10;
+        Random _random = new Random();
+        return _random.nextInt(20);
     }
 
     public Character getTarget(ArrayList<Character> teamArray, ArrayList<Character> oppositionArray, action givenAction){
