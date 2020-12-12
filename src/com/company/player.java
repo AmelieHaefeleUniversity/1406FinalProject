@@ -11,7 +11,7 @@ public class player extends Character {
     public player(String name){
         super(name, 20, 15);
         _playerActionList = _objActionList.getPlayerActions();
-        this._experiencePoints = 100;
+        this._experiencePoints = 0;
     }
 
     //TODO: finish getTarget

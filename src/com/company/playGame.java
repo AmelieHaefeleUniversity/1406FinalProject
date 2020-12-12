@@ -46,7 +46,8 @@ public class playGame {
                     _playerTeam.get(j).levelUp();
                 }
             }
-
+            printMethod.printCompletedGame();
+            return;
         }
 
     }

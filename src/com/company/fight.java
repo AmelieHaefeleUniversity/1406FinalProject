@@ -47,7 +47,7 @@ public class fight {
                 }
 
                 // Checks if the player got removed "dead"
-                if (_heroArray.get(0) == null) {
+                if (_heroArray.size() == 0) {
                     System.out.println("You lost better luck next time");
                     return false;
                 }
@@ -64,7 +64,7 @@ public class fight {
                 }
 
                 // Checks if the player got removed "dead"
-                if (_heroArray.get(0) == null) {
+                if (_heroArray.size() == 0) {
                     System.out.println("You lost better luck next time");
                     return false;
                 }

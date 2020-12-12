@@ -6,8 +6,6 @@ public class Character {
     protected String _name;
     protected int _health;
     protected int _actionPoints;
-    protected int _numCharacter;
-    private Character[] characterArray = new Character[_numCharacter];
     protected int _healthCap;
     protected int _actionPointCap;
     public int _level;
