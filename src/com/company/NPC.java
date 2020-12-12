@@ -29,7 +29,7 @@ public class NPC extends Character{
         return null;
     }
 
-    protected action getHealerAction(ArrayList<Character> teamArray,Character currentNPC){
+    private action getHealerAction(ArrayList<Character> teamArray,Character currentNPC){
         for (Character character : teamArray) {
             if (character.getHealth() < 15) {
                 if (enoughActionPoint(currentNPC, _NPCActionList.get("heal"))) {
@@ -43,7 +43,7 @@ public class NPC extends Character{
         }
         return _NPCActionList.get("rest");
     }
-    protected action getFighterAction(Character currentNPC){
+    private action getFighterAction(Character currentNPC){
         // change to melee attack that costs less Action Points
         if (enoughActionPoint(currentNPC,_NPCActionList.get("stab"))){
             return _NPCActionList.get("stab");
@@ -51,7 +51,7 @@ public class NPC extends Character{
         return _NPCActionList.get("rest");
 
     }
-    protected action getSpellCasterAction(Character currentNPC){
+    private action getSpellCasterAction(Character currentNPC){
         if (enoughActionPoint(currentNPC,_NPCActionList.get("fireball"))){
             return _NPCActionList.get("fireball");
         }
@@ -74,7 +74,7 @@ public class NPC extends Character{
             return null;
         }
     }
-    protected Character getHealerTarget(ArrayList<Character> teamArray, ArrayList<Character> oppositionArray, action givenAction) {
+    private Character getHealerTarget(ArrayList<Character> teamArray, ArrayList<Character> oppositionArray, action givenAction) {
         if (givenAction.getActionType().equals("helpful")){
            return lowestHealth(teamArray);
         }
@@ -84,13 +84,13 @@ public class NPC extends Character{
         }
     }
 
-    protected Character getFighterTarget(ArrayList<Character> oppositionArray) {
+    private Character getFighterTarget(ArrayList<Character> oppositionArray) {
         return lowestHealth(oppositionArray);
     }
 
-    protected Character getSpellCasterTarget(ArrayList<Character> oppositionArray) { return highestHealth(oppositionArray); }
+    private Character getSpellCasterTarget(ArrayList<Character> oppositionArray) { return highestHealth(oppositionArray); }
 
-    public Character lowestHealth( ArrayList<Character> givenArray){
+    private Character lowestHealth( ArrayList<Character> givenArray){
         Character lowestHealthNPC = givenArray.get(0);
         int lowestHealth = givenArray.get(0).getHealth();
         for (int i = 1; i <givenArray.size(); i ++){
@@ -102,7 +102,7 @@ public class NPC extends Character{
         return lowestHealthNPC;
     }
 
-    public Character highestHealth( ArrayList<Character> givenArray){
+    private Character highestHealth( ArrayList<Character> givenArray){
         Character highestHealthNPC = givenArray.get(0);
         int highestHealth = givenArray.get(0).getHealth();
         for (int i = 1; i <givenArray.size(); i ++){

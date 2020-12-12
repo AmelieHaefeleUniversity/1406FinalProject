@@ -1,22 +1,17 @@
 package com.company;
-
-import java.util.HashMap;
 import java.util.ArrayList;
 
 public class fight {
 
-    public ArrayList<Character> _heroArray;
-    public ArrayList<Character> _enemyArray;
+    private ArrayList<Character> _heroArray;
+    private ArrayList<Character> _enemyArray;
     private Character _target;
     private action _action;
-    actionList _objActionList = new actionList();
-    public HashMap<String, action> masterActionList;
-    public ArrayList<Character> _charactersInFight;
+    private ArrayList<Character> _charactersInFight;
 
     public fight(ArrayList<Character> heroArray, ArrayList<Character> enemyArray) {
         this._heroArray = heroArray;
         this._enemyArray = enemyArray;
-        masterActionList = _objActionList.getPlayerActions();
         this._charactersInFight = addLists(heroArray, enemyArray);
     }
 
@@ -77,7 +72,7 @@ public class fight {
     private void checkDeadPlayers(){
         for(int i = 0; i <_charactersInFight.size(); i++){
             Character obj = _charactersInFight.get(i);
-            checkDead(obj,i);
+            checkDead(obj);
         }
     }
 
@@ -87,7 +82,7 @@ public class fight {
         Character obj = AlliedArray.get(i);
 
         // Checks if the current Character is dead, if so they are removed from the array of possible characters
-        if (!checkDead(obj,i)){
+        if (!checkDead(obj)){
             return;
         }
         this._action = obj.getAction(AlliedArray,MobArray,obj);
@@ -107,7 +102,7 @@ public class fight {
 
     }
 
-    public boolean checkDead(Character obj, int i){
+    private boolean checkDead(Character obj){
         // Checks if the current character is dead
         if (obj.getHealth() <= 0){
             if (_heroArray.contains(obj)){
@@ -124,7 +119,7 @@ public class fight {
     }
 
     private ArrayList<Character> addLists(ArrayList<Character> list1, ArrayList<Character> list2){
-        ArrayList<Character> result = new ArrayList<Character>();
+        ArrayList<Character> result = new ArrayList<>();
         int i = 0;
         while (i < list1.size()){
             result.add(i, list1.get(i));
@@ -139,7 +134,7 @@ public class fight {
         return result;
     }
 
-    public void printCharacterStats(){
+    private void printCharacterStats(){
         System.out.println("\nYour Team:");
         for (int i = 0; i< _heroArray.size(); i++) {
             System.out.println(_heroArray.get(i).getName().substring(0, 1).toUpperCase() + _heroArray.get(i).getName().substring(1)+":\tHealth:"+_heroArray.get(i).getHealth()+"\tAction Points:"+_heroArray.get(i).getActionPoints());

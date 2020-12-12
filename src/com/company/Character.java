@@ -20,7 +20,7 @@ public class Character {
         this._level = 1;
     }
 
-    public int d20(){
+    protected int d20(){
         Random _random = new Random();
         return _random.nextInt(20);
     }
@@ -70,7 +70,7 @@ public class Character {
     }
 
     //removes action points here
-    public boolean enoughActionPoint(Character currentCharacter, action currentAction){
+    protected boolean enoughActionPoint(Character currentCharacter, action currentAction){
         if(currentCharacter.getActionPoints() >= currentAction.getApCost()){
             this._actionPoints = _actionPoints - currentAction.getApCost();
             return true;
@@ -80,7 +80,7 @@ public class Character {
     }
 
     //removes stats caused by actions here
-    public void effectCharacter(action chosenAction) {
+    protected void effectCharacter(action chosenAction) {
         if(chosenAction.getStatEffect().equals("health")){
             this._health = _health + chosenAction.getEffect();
             if (_health > _healthCap){

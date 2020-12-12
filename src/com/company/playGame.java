@@ -51,7 +51,7 @@ public class playGame {
         }
 
     }
-    public boolean keepGoing(){
+    private boolean keepGoing(){
         Scanner input = new Scanner(System.in);
         while(true) {
             System.out.println("Would you like to continue (yes/no)");
@@ -66,7 +66,7 @@ public class playGame {
         }
     }
 
-    public void setNPC(){
+    private void setNPC(){
         enemy alastair = new enemy("fighter","alastair",15,10,1);
         enemy prescott = new enemy("spellCaster","prescott",15,15,1);
 
