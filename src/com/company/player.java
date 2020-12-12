@@ -73,7 +73,7 @@ public class player extends Character {
     }
     public void levelUp(){
         this._level = _level +1;
-
+        this._experiencePoints = 0;
         Scanner input = new Scanner(System.in);
         while(true){
             System.out.println("Would you like to increase you overall health or action points by 5?\n");
@@ -107,6 +107,9 @@ public class player extends Character {
 
     public void increaseExperiencePoints(){
         this._experiencePoints = _experiencePoints + 20;
+    }
+    public int getExperiencePoints(){
+        return _experiencePoints;
     }
 
 }

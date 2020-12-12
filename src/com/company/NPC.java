@@ -15,6 +15,7 @@ public class NPC extends Character{
         this._playStyle = playStyle;
     }
 
+
     public action getAction(ArrayList<Character> teamArray, ArrayList<Character> enemyArray, Character currentNPC){
         if (_playStyle.equals("healer")){
             return getHealerAction(teamArray, currentNPC);
