@@ -7,10 +7,6 @@ public class Player extends Character {
     public HashMap<String, Action> _playerActionList;
     private ArrayList<Character> _givenArray;
     private int _experiencePoints;
-    final static public String REST_ACTION_TYPE = "neutral";
-    final static public String HARM_ACTION_TYPE = "harmful";
-    final static public String HELP_ACTION_TYPE = "helpful";
-    final static public String HEALTH_STAT_EFFECT = "health";
     final static public String ACTION_POINTS_STATS_EFFECT = "actionPoints";
 
     public Player(String name){
@@ -65,7 +61,7 @@ public class Player extends Character {
             System.out.println("\nWhat action would you like to do?\n");
             String actionName = input.nextLine().toLowerCase();
             if(_playerActionList.get(actionName) != null){
-                if(enoughActionPoint(obj,_playerActionList.get(actionName))){
+                if(checkAndChangeActionPoints(obj,_playerActionList.get(actionName))){
                     return _playerActionList.get(actionName);
                 }
                 else{
@@ -87,11 +83,13 @@ public class Player extends Character {
             if(toIncrease.equals(HEALTH_STAT_EFFECT)){
                 this._healthCap = _healthCap + 5;
                 this._health = _healthCap;
+                this._actionPoints = _actionPointCap;
                 return;
             }
             if(toIncrease.equals(ACTION_POINTS_STATS_EFFECT)){
                 this._actionPointCap = _actionPointCap +5;
                 this._actionPoints = _actionPointCap;
+                this._health = _healthCap;
                 return;
             }
             System.out.println("Please enter a valid stat to increase, for example input (health or action points)");

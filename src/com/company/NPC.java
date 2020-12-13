@@ -3,11 +3,7 @@ package com.company;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class NPC extends Character{  // Space between end of string and { PH
-    private final String _playStyle;
-    public HashMap<String, Action> _NPCActionList;  // Never public PH
-    ActionList _objActionList = new ActionList();
-    final static public String HELP_ACTION_TYPE = "helpful";
+public class NPC extends Character {
     final static public String HEALER_TYPE = "healer";
     final static public String SPELL_CASTER_TYPE = "spellCaster";
     final static public String FIGHTER_TYPE = "fighter";
@@ -16,6 +12,9 @@ public class NPC extends Character{  // Space between end of string and { PH
     final static public String REST_ACTION = "rest";
     final static public String STAB_ACTION = "stab";
 
+    private final String _playStyle;
+    public HashMap<String, Action> _NPCActionList;  // Never public PH
+    ActionList _objActionList = new ActionList();
 
 
 
@@ -42,33 +41,34 @@ public class NPC extends Character{  // Space between end of string and { PH
     private Action getHealerAction(ArrayList<Character> teamArray, Character currentNPC){
         for (Character character : teamArray) {
             if (character.getHealth() < 15) {
-                if (enoughActionPoint(currentNPC, _NPCActionList.get(HEAL_ACTION))) {
+                if (checkAndChangeActionPoints(currentNPC, _NPCActionList.get(HEAL_ACTION))) {
                     return _NPCActionList.get(HEAL_ACTION);
                 }
             }
         }
         // Return something else please
-        if (enoughActionPoint(currentNPC,_NPCActionList.get(FIREBALL_ACTION))){
+        if (checkAndChangeActionPoints(currentNPC,_NPCActionList.get(FIREBALL_ACTION))){
             return _NPCActionList.get(FIREBALL_ACTION);
         }
         return _NPCActionList.get(REST_ACTION);
     }
+
     private Action getFighterAction(Character currentNPC){
         // change to melee attack that costs less Action Points
-        if (enoughActionPoint(currentNPC,_NPCActionList.get(STAB_ACTION))){
+        if (checkAndChangeActionPoints(currentNPC,_NPCActionList.get(STAB_ACTION))){
             return _NPCActionList.get(STAB_ACTION);
         }
         return _NPCActionList.get(REST_ACTION);
 
     }
+
     private Action getSpellCasterAction(Character currentNPC){
-        if (enoughActionPoint(currentNPC,_NPCActionList.get(FIREBALL_ACTION))){
+        if (checkAndChangeActionPoints(currentNPC,_NPCActionList.get(FIREBALL_ACTION))){
             return _NPCActionList.get(FIREBALL_ACTION);
         }
         return _NPCActionList.get(REST_ACTION);
 
     }
-
 
     public Character getTarget(ArrayList<Character> teamArray, ArrayList<Character> oppositionArray, Action givenAction){
         if (_playStyle.equals(HEALER_TYPE)){
@@ -84,6 +84,7 @@ public class NPC extends Character{  // Space between end of string and { PH
             return null;
         }
     }
+
     private Character getHealerTarget(ArrayList<Character> teamArray, ArrayList<Character> oppositionArray, Action givenAction) {
         if (givenAction.getActionType().equals(HELP_ACTION_TYPE)){
            return lowestHealth(teamArray);
@@ -98,42 +99,40 @@ public class NPC extends Character{  // Space between end of string and { PH
         return lowestHealth(oppositionArray);
     }
 
-    private Character getSpellCasterTarget(ArrayList<Character> oppositionArray) { return highestHealth(oppositionArray); }
+    private Character getSpellCasterTarget(ArrayList<Character> oppositionArray) {
+        return highestHealth(oppositionArray);
+    }
 
-    private Character lowestHealth( ArrayList<Character> givenArray){
-        Character lowestHealthNPC = givenArray.get(0);
-        int lowestHealth = givenArray.get(0).getHealth();
+    private Character lowestHealth(ArrayList<Character> givenArray){
+        Character lowestHealthCharacter = givenArray.get(0);
         for (int i = 1; i <givenArray.size(); i ++){
-            if (givenArray.get(i).getHealth() < lowestHealth){
-                lowestHealthNPC = givenArray.get(i);
-                lowestHealth = givenArray.get(i).getHealth();
+            if (givenArray.get(i).getHealth() < lowestHealthCharacter.getHealth()){
+                lowestHealthCharacter = givenArray.get(i);
             }
         }
-        return lowestHealthNPC;
+        return lowestHealthCharacter;
     }
 
     private Character highestHealth( ArrayList<Character> givenArray){
-        Character highestHealthNPC = givenArray.get(0);
-        int highestHealth = givenArray.get(0).getHealth();
+        Character highestHealthCharacter = givenArray.get(0);
         for (int i = 1; i <givenArray.size(); i ++){
-            if (givenArray.get(i).getHealth() < highestHealth){
-                highestHealthNPC = givenArray.get(i);
-                highestHealth = givenArray.get(i).getHealth();
+            if (givenArray.get(i).getHealth() < highestHealthCharacter.getHealth()){
+                highestHealthCharacter = givenArray.get(i);
             }
         }
-        return highestHealthNPC;
+        return highestHealthCharacter;
     }
 
     public void levelUp(){
         if (_level % 2 == 0){
-            this._healthCap = _healthCap +5;
+            this._healthCap = _healthCap + 5;
             this._health = _healthCap;
         }
         else {
-            this._actionPointCap = _actionPointCap +5;
+            this._actionPointCap = _actionPointCap + 5;
             this._actionPoints = _actionPointCap;
         }
-        this._level = _level+1;
+        this._level = _level + 1;
     }
 }
 

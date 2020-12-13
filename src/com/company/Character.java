@@ -1,19 +1,22 @@
 package com.company;
+import jdk.jshell.spi.ExecutionControl;
+
 import java.util.Random;
 import java.util.ArrayList;
 
 public class Character {
+    final static public String REST_ACTION_TYPE = "neutral";
+    final static public String HARM_ACTION_TYPE = "harmful";
+    final static public String HELP_ACTION_TYPE = "helpful";
+    final static public String HEALTH_STAT_EFFECT = "health";
+    final static public String ACTION_POINTS_STAT_EFFECT = "actionPoints";
+
     protected String _name;
     protected int _health;
     protected int _actionPoints;
     protected int _healthCap;
     protected int _actionPointCap;
     protected int _level;  // Not public
-    final static public String REST_ACTION_TYPE = "neutral";
-    final static public String HARM_ACTION_TYPE = "harmful";
-    final static public String HELP_ACTION_TYPE = "helpful";
-    final static public String HEALTH_STAT_EFFECT = "health";
-    final static public String ACTION_POINTS_STATS_EFFECT = "actionPoints";
 
     public Character(String name, int health, int actionPoints){
         this._name = name;
@@ -36,13 +39,16 @@ public class Character {
     public int getHealth(){
         return _health;
     }
-    public String getName(){return _name;}
-    public int getActionPoints(){return _actionPoints;}
+    public String getName() {
+        return _name;
+    }
+    public int getActionPoints() {
+        return _actionPoints;
+    }
 
     public void effect(Action chosenAction, Character doingAction, Character target){
         int ranInt = d20();
 
-        // S
         String currentActionType= chosenAction.getActionType();
         if(currentActionType.equals(REST_ACTION_TYPE)){
             effectCharacter(chosenAction);
@@ -75,13 +81,12 @@ public class Character {
     }
 
     //removes action points here
-    protected boolean enoughActionPoint(Character currentCharacter, Action currentAction){
-        if(currentCharacter.getActionPoints() >= currentAction.getApCost()){
-            this._actionPoints = _actionPoints - currentAction.getApCost();
-            return true;
+    protected boolean checkAndChangeActionPoints(Character currentCharacter, Action currentAction){
+        if(currentCharacter.getActionPoints() < currentAction.getApCost()){
+            return false;
         }
-        return currentCharacter.getActionPoints() >= currentAction.getApCost();
-
+        this._actionPoints = _actionPoints - currentAction.getApCost();
+        return true;
     }
 
     //removes stats caused by actions here
@@ -92,16 +97,22 @@ public class Character {
                 this._health = _healthCap;
             }
         }
-        if(chosenAction.getStatEffect().equals(ACTION_POINTS_STATS_EFFECT)){
+        if(chosenAction.getStatEffect().equals(ACTION_POINTS_STAT_EFFECT)){
             this._actionPoints = _actionPoints + chosenAction.getEffect();
             if (_actionPoints > _actionPointCap){
                 this._actionPoints = _actionPointCap;
             }
         }
     }
-    public void levelUp(){}
-    public void increaseExperiencePoints(){}
-    public void addHopeSword(){}
+    public void levelUp() {
+        throw new RuntimeException("Unimplemented method");
+    }
+    public void increaseExperiencePoints() {
+        //only gets added for player
+    }
+    public void addHopeSword() {
+        throw new RuntimeException("Unimplemented method");
+    }
 }
 
 
