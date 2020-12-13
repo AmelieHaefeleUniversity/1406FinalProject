@@ -13,32 +13,30 @@ public class NPC extends Character {
     final static public String STAB_ACTION = "stab";
 
     private final String _playStyle;
-    public HashMap<String, Action> _NPCActionList;  // Never public PH
-    ActionList _objActionList = new ActionList();
+    private HashMap<String, Action> _NPCActionList;
 
 
-
-    public NPC(String playStyle,String name, int health, int actionPoints){
-        super(name,health,actionPoints);
-        this._NPCActionList = _objActionList.getNPCActions();
+    public NPC(String playStyle, String name, int health, int actionPoints) {
+        super(name, health, actionPoints);
+        this._NPCActionList = ActionList.getNPCActions();
         this._playStyle = playStyle;
     }
 
 
-    public Action getAction(ArrayList<Character> teamArray, ArrayList<Character> enemyArray, Character currentNPC){
-        if (_playStyle.equals(HEALER_TYPE)){
+    public Action getAction(ArrayList<Character> teamArray, ArrayList<Character> enemyArray, Character currentNPC) {
+        if (_playStyle.equals(HEALER_TYPE)) {
             return getHealerAction(teamArray, currentNPC);
         }
-        if(_playStyle.equals(FIGHTER_TYPE)){
+        if (_playStyle.equals(FIGHTER_TYPE)) {
             return getFighterAction(currentNPC);
         }
-        if (_playStyle.equals(SPELL_CASTER_TYPE)){
+        if (_playStyle.equals(SPELL_CASTER_TYPE)) {
             return getSpellCasterAction(currentNPC);
         }
         return null;
     }
 
-    private Action getHealerAction(ArrayList<Character> teamArray, Character currentNPC){
+    private Action getHealerAction(ArrayList<Character> teamArray, Character currentNPC) {
         for (Character character : teamArray) {
             if (character.getHealth() < 15) {
                 if (checkAndChangeActionPoints(currentNPC, _NPCActionList.get(HEAL_ACTION))) {
@@ -47,49 +45,47 @@ public class NPC extends Character {
             }
         }
         // Return something else please
-        if (checkAndChangeActionPoints(currentNPC,_NPCActionList.get(FIREBALL_ACTION))){
+        if (checkAndChangeActionPoints(currentNPC, _NPCActionList.get(FIREBALL_ACTION))) {
             return _NPCActionList.get(FIREBALL_ACTION);
         }
         return _NPCActionList.get(REST_ACTION);
     }
 
-    private Action getFighterAction(Character currentNPC){
+    private Action getFighterAction(Character currentNPC) {
         // change to melee attack that costs less Action Points
-        if (checkAndChangeActionPoints(currentNPC,_NPCActionList.get(STAB_ACTION))){
+        if (checkAndChangeActionPoints(currentNPC, _NPCActionList.get(STAB_ACTION))) {
             return _NPCActionList.get(STAB_ACTION);
         }
         return _NPCActionList.get(REST_ACTION);
 
     }
 
-    private Action getSpellCasterAction(Character currentNPC){
-        if (checkAndChangeActionPoints(currentNPC,_NPCActionList.get(FIREBALL_ACTION))){
+    private Action getSpellCasterAction(Character currentNPC) {
+        if (checkAndChangeActionPoints(currentNPC, _NPCActionList.get(FIREBALL_ACTION))) {
             return _NPCActionList.get(FIREBALL_ACTION);
         }
         return _NPCActionList.get(REST_ACTION);
 
     }
 
-    public Character getTarget(ArrayList<Character> teamArray, ArrayList<Character> oppositionArray, Action givenAction){
-        if (_playStyle.equals(HEALER_TYPE)){
-            return getHealerTarget(teamArray, oppositionArray,givenAction );
+    public Character getTarget(ArrayList<Character> teamArray, ArrayList<Character> oppositionArray, Action givenAction) {
+        if (_playStyle.equals(HEALER_TYPE)) {
+            return getHealerTarget(teamArray, oppositionArray, givenAction);
         }
-        if(_playStyle.equals(FIGHTER_TYPE)){
+        if (_playStyle.equals(FIGHTER_TYPE)) {
             return getFighterTarget(oppositionArray);
         }
-        if (_playStyle.equals(SPELL_CASTER_TYPE)){
+        if (_playStyle.equals(SPELL_CASTER_TYPE)) {
             return getSpellCasterTarget(oppositionArray);
-        }
-        else{
+        } else {
             return null;
         }
     }
 
     private Character getHealerTarget(ArrayList<Character> teamArray, ArrayList<Character> oppositionArray, Action givenAction) {
-        if (givenAction.getActionType().equals(HELP_ACTION_TYPE)){
-           return lowestHealth(teamArray);
-        }
-        else{
+        if (givenAction.getActionType().equals(HELP_ACTION_TYPE)) {
+            return lowestHealth(teamArray);
+        } else {
             return highestHealth(oppositionArray);
 
         }
@@ -103,32 +99,31 @@ public class NPC extends Character {
         return highestHealth(oppositionArray);
     }
 
-    private Character lowestHealth(ArrayList<Character> givenArray){
+    private Character lowestHealth(ArrayList<Character> givenArray) {
         Character lowestHealthCharacter = givenArray.get(0);
-        for (int i = 1; i <givenArray.size(); i ++){
-            if (givenArray.get(i).getHealth() < lowestHealthCharacter.getHealth()){
+        for (int i = 1; i < givenArray.size(); i++) {
+            if (givenArray.get(i).getHealth() < lowestHealthCharacter.getHealth()) {
                 lowestHealthCharacter = givenArray.get(i);
             }
         }
         return lowestHealthCharacter;
     }
 
-    private Character highestHealth( ArrayList<Character> givenArray){
+    private Character highestHealth(ArrayList<Character> givenArray) {
         Character highestHealthCharacter = givenArray.get(0);
-        for (int i = 1; i <givenArray.size(); i ++){
-            if (givenArray.get(i).getHealth() < highestHealthCharacter.getHealth()){
+        for (int i = 1; i < givenArray.size(); i++) {
+            if (givenArray.get(i).getHealth() < highestHealthCharacter.getHealth()) {
                 highestHealthCharacter = givenArray.get(i);
             }
         }
         return highestHealthCharacter;
     }
 
-    public void levelUp(){
-        if (_level % 2 == 0){
+    public void levelUp() {
+        if (_level % 2 == 0) {
             this._healthCap = _healthCap + 5;
             this._health = _healthCap;
-        }
-        else {
+        } else {
             this._actionPointCap = _actionPointCap + 5;
             this._actionPoints = _actionPointCap;
         }

@@ -1,16 +1,15 @@
 package com.company;
+
 import java.util.ArrayList;
 
 public class Fight {
 
-    private ArrayList<Character> _heroArray;
-    private ArrayList<Character> _enemyArray;
-    private Character _target;
-    private Action _action;
-    private ArrayList<Character> _charactersInFight;
     final static public String REST_ACTION_TYPE = "neutral";
     final static public String HARM_ACTION_TYPE = "harmful";
     final static public String HELP_ACTION_TYPE = "helpful";
+    private final ArrayList<Character> _heroArray;
+    private final ArrayList<Character> _enemyArray;
+    private final ArrayList<Character> _charactersInFight;
 
     public Fight(ArrayList<Character> heroArray, ArrayList<Character> enemyArray) {
         this._heroArray = heroArray;
@@ -34,7 +33,7 @@ public class Fight {
             }
             //For loops don't work if there's only one item in the array list
             printCharacterStats();
-            for (int i = 0; i< _heroArray.size(); i++){
+            for (int i = 0; i < _heroArray.size(); i++) {
                 //always pass in the player first so this can be checked
                 // Checks if someone won
                 checkDeadPlayers();
@@ -48,11 +47,11 @@ public class Fight {
                     System.out.println("You lost better luck next time");
                     return false;
                 }
-                turn(_heroArray,_enemyArray,i);
+                turn(_heroArray, _enemyArray, i);
 
             }
             checkDeadPlayers();
-            for (int j = 0; j< _enemyArray.size(); j++){
+            for (int j = 0; j < _enemyArray.size(); j++) {
                 // Checks if the player has won
                 //always pass in the player first so this can be checked
                 checkDeadPlayers();
@@ -66,71 +65,73 @@ public class Fight {
                     System.out.println("You lost better luck next time");
                     return false;
                 }
-                turn(_enemyArray,_heroArray,j);
+                turn(_enemyArray, _heroArray, j);
             }
         }
         System.out.println("Error this point should not be read");
         return false;
     }
-    private void checkDeadPlayers(){
-        for(int i = 0; i <_charactersInFight.size(); i++){
+
+    private void checkDeadPlayers() {
+        for (int i = 0; i < _charactersInFight.size(); i++) {
             Character currentCharacter = _charactersInFight.get(i);
             checkDead(currentCharacter);
         }
     }
 
     // PH methods start with a lower case
-    private void turn(ArrayList<Character> AlliedArray , ArrayList<Character> MobArray, int i){
+    private void turn(ArrayList<Character> AlliedArray, ArrayList<Character> MobArray, int i) {
+
         // Sets the current character to get info from, so they can have their turn
         checkDeadPlayers();
         Character currentCharacter = AlliedArray.get(i);  // currentCharacter is bae variable name PH
 
         // Checks if the current Character is dead, if so they are removed from the array of possible characters
-        if (!checkDead(currentCharacter)){
+        if (!checkDead(currentCharacter)) {
             return;
         }
-        this._action = currentCharacter.getAction(AlliedArray,MobArray,currentCharacter);
-        String chosenActionType = _action.getActionType();
-        if (chosenActionType.equals(REST_ACTION_TYPE)){
+        Character target = null;  // Set below
+        Action action = currentCharacter.getAction(AlliedArray, MobArray, currentCharacter);
+        String chosenActionType = action.getActionType();
+
+        if (chosenActionType.equals(REST_ACTION_TYPE)) {
             //set target as current persons turn
-            this._target = AlliedArray.get(i);
+            target = AlliedArray.get(i);
         }
-        if (chosenActionType.equals(HELP_ACTION_TYPE)){
-            this._target = currentCharacter.getTarget(AlliedArray,MobArray,_action);
+        if (chosenActionType.equals(HELP_ACTION_TYPE)) {
+            target = currentCharacter.getTarget(AlliedArray, MobArray, action);
 
         }
         if (chosenActionType.equals(HARM_ACTION_TYPE)) {
-            this._target = currentCharacter.getTarget(AlliedArray,MobArray,_action);
+            target = currentCharacter.getTarget(AlliedArray, MobArray, action);
         }
-        _target.effect(_action, currentCharacter, _target);
+        target.effect(currentCharacter, action);
 
     }
 
-    private boolean checkDead(Character currentCharacter){
+    private boolean checkDead(Character currentCharacter) {
         // Checks if the current character is dead
-        if (currentCharacter.getHealth() <= 0){
-            if (_heroArray.contains(currentCharacter)){
+        if (currentCharacter.getHealth() <= 0) {
+            if (_heroArray.contains(currentCharacter)) {
                 _heroArray.remove(currentCharacter);
-            }
-            else{
+            } else {
                 _enemyArray.remove(currentCharacter);
             }
             return false;
-        }
-        else{
+        } else {
             return true;
         }
     }
 
-    private ArrayList<Character> addLists(ArrayList<Character> list1, ArrayList<Character> list2){
+    private ArrayList<Character> addLists(ArrayList<Character> list1, ArrayList<Character> list2) {
         ArrayList<Character> result = new ArrayList<>();
         int i = 0;
-        while (i < list1.size()){
+        while (i < list1.size()) {
             result.add(i, list1.get(i));
             i++;
         }
         int j = 0;
-        while (j < list2.size()){
+        while (j < list2.size()) {
             result.add(i, list2.get(j));
             i++;
             j++;
@@ -138,15 +139,15 @@ public class Fight {
         return result;
     }
 
-    private void printCharacterStats(){
+    private void printCharacterStats() {
         System.out.println("\nYour Team:");
-        for (int i = 0; i< _heroArray.size(); i++) {
-            System.out.println(_heroArray.get(i).getName().substring(0, 1).toUpperCase() + _heroArray.get(i).getName().substring(1)+":\tHealth:"+_heroArray.get(i).getHealth()+"\tAction Points:"+_heroArray.get(i).getActionPoints());
+        for (int i = 0; i < _heroArray.size(); i++) {
+            System.out.println(_heroArray.get(i).getName().substring(0, 1).toUpperCase() + _heroArray.get(i).getName().substring(1) + ":\tHealth:" + _heroArray.get(i).getHealth() + "\tAction Points:" + _heroArray.get(i).getActionPoints());
         }
 
         System.out.println("\nEnemy Team:");
-        for (int j = 0; j< _enemyArray.size(); j++){
-            System.out.println(_enemyArray.get(j).getName().substring(0, 1).toUpperCase() + _enemyArray.get(j).getName().substring(1)+":\tHealth:"+_enemyArray.get(j).getHealth()+"\tAction Points:"+_enemyArray.get(j).getActionPoints());
+        for (int j = 0; j < _enemyArray.size(); j++) {
+            System.out.println(_enemyArray.get(j).getName().substring(0, 1).toUpperCase() + _enemyArray.get(j).getName().substring(1) + ":\tHealth:" + _enemyArray.get(j).getHealth() + "\tAction Points:" + _enemyArray.get(j).getActionPoints());
         }
     }
 }
