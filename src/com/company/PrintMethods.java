@@ -1,5 +1,8 @@
 package com.company;
 
+/**
+ * Store all the text and print methods
+ */
 public class PrintMethods {
 
     public void printRule() {
@@ -21,6 +24,10 @@ public class PrintMethods {
                 "laughed quietly to herself. \n It’s your job as a young adventurers to destroy his evil grip on the world and find peace. Good Luck!");
     }
 
+    /**
+     * Different fight intro text depending on what fight is happening
+     * @param i which fight you're on
+     */
     public void printFightIntro(int i) {
         if (i == 0) {
             System.out.println("\n\nAfter a while of traveling you enter a small forest clearing. “I roll a perception check.” you say while rolling a dice,\n" +

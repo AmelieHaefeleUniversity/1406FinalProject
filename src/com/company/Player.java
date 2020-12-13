@@ -6,31 +6,43 @@ import java.util.Scanner;
 
 /**
 Represents the human player.
-
  */
 public class Player extends Character {
-    final static public String ACTION_POINTS_STATS_EFFECT = "actionPoints";
+    final static public String ACTION_POINTS_STATS_EFFECT = "action points";
     private HashMap<String, Action> _playerActionList;
-    private ArrayList<Character> _givenArray;   // local variable. PH
     private int _experiencePoints;
 
+    /**
+     * Player constructor different form character as it has an action list and experience points
+     * @param name the player's name
+     */
     public Player(String name) {
         super(name, 20, 15);
-        _playerActionList = ActionList.getPlayerActions();
+        _playerActionList = ActionList.getActionList();
         this._experiencePoints = 0;
     }
 
+    /**
+     * Prints out the list of possible targets based on whether the action is helpful and harmful
+     * then asks the player to input the name
+     * checks if their input is valid and will re prompt them if not
+     * @param teamArray the array of players the player is fighting alongside
+     * @param oppositionArray the array of characters the player is fighting against
+     * @param givenAction what action the player previously chose
+     * @return returns the player's chosen target
+     */
     public Character getTarget(ArrayList<Character> teamArray, ArrayList<Character> oppositionArray, Action givenAction) {
+        ArrayList<Character> targetArray = new ArrayList<Character>();
         if (givenAction.getActionType().equals(HELP_ACTION_TYPE)) {
-            this._givenArray = teamArray;
+            targetArray = teamArray;
 
         }
         if (givenAction.getActionType().equals(HARM_ACTION_TYPE)) {
-            this._givenArray = oppositionArray;
+            targetArray = oppositionArray;
         }
         System.out.println("Target List:\n");
-        for (int i = 0; i < _givenArray.size(); i++) {
-            String target = _givenArray.get(i).getName();
+        for (Character value : targetArray) {
+            String target = value.getName();
             target = target.substring(0, 1).toUpperCase() + target.substring(1);
             System.out.println(target);
         }
@@ -38,7 +50,7 @@ public class Player extends Character {
         while (true) {
             System.out.println("\nWho would you like to target?\n");
             String targetName = input.nextLine().toLowerCase();
-            for (Character character : _givenArray) {
+            for (Character character : targetArray) {
                 String givenArrayName = character.getName();
                 if (targetName.equals(givenArrayName)) {
                     return character;
@@ -49,7 +61,16 @@ public class Player extends Character {
 
     }
 
-    public Action getAction(ArrayList<Character> heroArray, ArrayList<Character> enemyArray, Character obj) {
+    /**
+     * prints out all actions the player can preform
+     * asks for the players inputted action
+     * if the action is not valid it will re prompt them to enter a valid one
+     * @param heroArray the array of players the player is fighting alongside
+     * @param enemyArray the array of characters the player is fighting against
+     * @param playerCharacter the player
+     * @return returns the players chosen action
+     */
+    public Action getAction(ArrayList<Character> heroArray, ArrayList<Character> enemyArray, Character playerCharacter) {
         System.out.println("\nAction List:\n");
         for (String actionName : _playerActionList.keySet()) {
             Action currentAction = _playerActionList.get(actionName);
@@ -66,7 +87,7 @@ public class Player extends Character {
             System.out.println("\nWhat action would you like to do?\n");
             String actionName = input.nextLine().toLowerCase();
             if (_playerActionList.get(actionName) != null) {
-                if (checkAndChangeActionPoints(obj, _playerActionList.get(actionName))) {
+                if (checkAndChangeActionPoints(playerCharacter, _playerActionList.get(actionName))) {
                     return _playerActionList.get(actionName);
                 } else {
                     System.out.println("Error not enough action points!");
@@ -76,6 +97,11 @@ public class Player extends Character {
         }
     }
 
+    /**
+     * Will ask the player what they want to level up, health or action points
+     * if they don't enter a valid option they will be re prompted until they enter a valid one
+     * sets the players experience points back to zero
+     */
     public void levelUp() {
         this._level = this._level + 1;
         this._experiencePoints = 0;
@@ -102,6 +128,10 @@ public class Player extends Character {
 
     }
 
+    /**
+     * The player will get new actions based on their level
+     * @param level the current player's level
+     */
     public void levelLootSystem(int level) {
         if (level == 2) {
             Action firework = new Action(3, HARM_ACTION_TYPE, -6, HEALTH_STAT_EFFECT);
@@ -114,14 +144,24 @@ public class Player extends Character {
 
     }
 
+    /**
+     * each successful action will increase the players action points by 50
+     */
     public void increaseExperiencePoints() {
         this._experiencePoints = _experiencePoints + 50;
     }
 
+    /**
+     * Getter method for PlayGame
+     * @return returns the variables from players
+     */
     public int getExperiencePoints() {
         return _experiencePoints;
     }
 
+    /**
+     * Special method that adds a new action for the boss fight
+     */
     public void addHopeSword() {
         Action hopeSword = new Action(2, HARM_ACTION_TYPE, -10, HEALTH_STAT_EFFECT);
         _playerActionList.put("Hope Sword", hopeSword);

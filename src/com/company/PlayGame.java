@@ -3,34 +3,53 @@ package com.company;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class PlayGame {  // Capital PH
+public class PlayGame {
+    /**
+     * Setting up the variables needed for this class
+     */
     public String _playerName;
-    private final ArrayList<Enemy> _fightOne = new ArrayList<Enemy>();
-    private final ArrayList<Enemy> _fightTwo = new ArrayList<Enemy>();
-    private final ArrayList<Enemy> _fightThree = new ArrayList<Enemy>();
-    private ArrayList<Character> _playerTeam = new ArrayList<Character>();
-    private final ArrayList<ArrayList> _fights = new ArrayList<ArrayList>();
-    private ArrayList<Character> _playerTeamDeepCopy = new ArrayList<Character>();
-    // Just have the fights list PH
+    private final ArrayList<Enemy> _fightOne = new ArrayList<>();
+    private final ArrayList<Enemy> _fightTwo = new ArrayList<>();
+    private final ArrayList<Enemy> _fightThree = new ArrayList<>();
+    private ArrayList<Character> _playerTeam = new ArrayList<>();
+    private final ArrayList<ArrayList> _fights = new ArrayList<>();
+    private ArrayList<Character> _playerTeamDeepCopy = new ArrayList<>();
     private Player _playerCharacter;
 
+    /**
+     * Constructor that takes the player name
+     * @param playerName the chosen player's name
+     */
     public PlayGame(String playerName) {
         this._playerName = playerName;
     }
 
+    /**
+     * Play game main method
+     */
     public void playGameMethod() {
         PrintMethods printMethod = new PrintMethods();
-        setNPC();
-        boolean fightHappening = true;
+        createNPCs();
+        boolean fightHappening;
         printMethod.printRule();
         printMethod.printIntro();
+        /**
+         * Cycles through all the fights
+         */
         for (int i = 0; i < _fights.size(); i++) {
             if (i == 2) {
                 _playerCharacter.addHopeSword();
             }
             fightHappening = true;
             while (fightHappening) {
+                /**
+                 * Keeps going until the player wins or quits the game
+                 * will resume on the current fight they died on
+                 */
                 printMethod.printFightIntro(i);
+                /**
+                 * Copies the player before the fight so players removed from the fight(died) will be in the next fight
+                 */
                 _playerTeamDeepCopy = _playerTeam;
                 Fight fightSetUp = new Fight(_playerTeam, _fights.get(i));
                 if (!fightSetUp.playFight()) {
@@ -42,25 +61,34 @@ public class PlayGame {  // Capital PH
                 } else {
                     fightHappening = false;
                 }
-                this._playerTeam = _playerTeamDeepCopy;
+                _playerTeam = _playerTeamDeepCopy;
+                /**
+                 * if the player has more than or equal to 100 experience points the leveled up method is called on all Characters in the good guy lsit
+                 */
                 int ep = _playerCharacter.getExperiencePoints();
                 if (ep >= 100)
-                    for (int j = 0; j < _playerTeam.size(); j++) {
-                        _playerTeam.get(j).levelUp();
+                    for (Character character : _playerTeam) {
+                        character.levelUp();
                     }
             }
         }
+        /**
+         * Once the user completes the game the winning method is printed out and the game ends
+         */
         printMethod.printCompletedGame();
-        return;
 
     }
 
+    /**
+     * Asks if they player wants to keep going if a valid action isn't inputted the user will be re prompted to enter a valid one
+     * @return returns true if they player wants to keep going returns false if they don't want to
+     */
     private boolean keepGoing() {
         Scanner input = new Scanner(System.in);
         while (true) {
             System.out.println("Would you like to continue (yes/no)");
             String answer = input.nextLine().toLowerCase();
-            if (answer.equals("yes")) {   // equalsIgnoreCase?
+            if (answer.equals("yes")) {
                 return true;
             }
             if (answer.equals("no")) {
@@ -70,7 +98,10 @@ public class PlayGame {  // Capital PH
         }
     }
 
-    private void setNPC() {  // Rename createNPCs.
+    /**
+     * Creates all needed NCPs and puts them into their respected arrays
+     */
+    private void createNPCs() {
         Enemy alastair = new Enemy("fighter", "alastair", 15, 10, 1);
         Enemy prescott = new Enemy("spellCaster", "prescott", 10, 15, 1);
 
@@ -91,6 +122,9 @@ public class PlayGame {  // Capital PH
         Follower peter = new Follower("healer", "peter", 20, 15);
         Follower danielle = new Follower("fighter", "danielle", 20, 15);
         Player playerCharacter = new Player(_playerName);
+        /**
+         * Puts them into their array list
+         */
         _playerTeam.add(0, playerCharacter);
         this._playerCharacter = playerCharacter;
         _playerTeam.add(1, peter);

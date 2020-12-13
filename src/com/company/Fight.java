@@ -3,39 +3,48 @@ package com.company;
 import java.util.ArrayList;
 
 public class Fight {
-
+    /**
+     * Setting up String variables and needed Arrays
+     */
     final static public String REST_ACTION_TYPE = "neutral";
-    final static public String HARM_ACTION_TYPE = "harmful";
-    final static public String HELP_ACTION_TYPE = "helpful";
     private final ArrayList<Character> _heroArray;
     private final ArrayList<Character> _enemyArray;
     private final ArrayList<Character> _charactersInFight;
 
+    /**
+     * Fight Constructor
+     * @param heroArray the player and follower array
+     * @param enemyArray the given enemy array
+     */
     public Fight(ArrayList<Character> heroArray, ArrayList<Character> enemyArray) {
         this._heroArray = heroArray;
         this._enemyArray = enemyArray;
         this._charactersInFight = addLists(heroArray, enemyArray);
     }
 
+    /**
+     * Main fight method
+     * @return returns true if the player won, false if they lost
+     */
     public boolean playFight() {
-        boolean _play = true;
-        while (_play) {
+        while (true) {
             checkDeadPlayers();
-            // Checks if someone won
+            /**
+             * Checks after all turns and before each turn if someone has done
+             */
             if (_enemyArray.size() == 0) {
                 System.out.println("Congrats you won!");
                 return true;
             }
-            // Checks if the player got removed "dead"
             if (_heroArray.size() == 0) {
                 System.out.println("You lost better luck next time");
                 return false;
             }
-            //For loops don't work if there's only one item in the array list
+            /**
+             * Hero team turn including the player and their two followers
+             */
             printCharacterStats();
             for (int i = 0; i < _heroArray.size(); i++) {
-                //always pass in the player first so this can be checked
-                // Checks if someone won
                 checkDeadPlayers();
                 if (_enemyArray.size() == 0) {
                     System.out.println("Congrats you won!");
@@ -51,16 +60,15 @@ public class Fight {
 
             }
             checkDeadPlayers();
+            /**
+             * Enemy team turn
+             */
             for (int j = 0; j < _enemyArray.size(); j++) {
-                // Checks if the player has won
-                //always pass in the player first so this can be checked
                 checkDeadPlayers();
                 if (_enemyArray.size() == 0) {
                     System.out.println("Congrats you won!");
                     return true;
                 }
-
-                // Checks if the player got removed "dead"
                 if (_heroArray.size() == 0) {
                     System.out.println("You lost better luck next time");
                     return false;
@@ -68,49 +76,57 @@ public class Fight {
                 turn(_enemyArray, _heroArray, j);
             }
         }
-        System.out.println("Error this point should not be read");
-        return false;
+        /**
+         * Prints out an error if reached
+         */
     }
 
+    /**
+     * Goes through all characters and does checkDead() on them
+     */
     private void checkDeadPlayers() {
-        for (int i = 0; i < _charactersInFight.size(); i++) {
-            Character currentCharacter = _charactersInFight.get(i);
+        for (Character currentCharacter : _charactersInFight) {
             checkDead(currentCharacter);
         }
     }
 
-    // PH methods start with a lower case
-    private void turn(ArrayList<Character> AlliedArray, ArrayList<Character> MobArray, int i) {
-
-        // Sets the current character to get info from, so they can have their turn
+    /**
+     * Main turn method
+     * @param alliedArray the array the current character is fighting alongside
+     * @param oppositionArray the array the current character is fighting against
+     * @param i which character in the array the turn is currently on
+     */
+    private void turn(ArrayList<Character> alliedArray, ArrayList<Character> oppositionArray, int i) {
         checkDeadPlayers();
-        Character currentCharacter = AlliedArray.get(i);  // currentCharacter is bae variable name PH
+        Character currentCharacter = alliedArray.get(i);
 
-        // Checks if the current Character is dead, if so they are removed from the array of possible characters
+        /**
+         * Checks if the current Character is dead, if so they are removed from the array of possible characters and doesn't get to have their turn
+         */
         if (!checkDead(currentCharacter)) {
             return;
         }
-        Character target = null;  // Set below
-        Action action = currentCharacter.getAction(AlliedArray, MobArray, currentCharacter);
+        Character target;
+        Action action = currentCharacter.getAction(alliedArray, oppositionArray, currentCharacter);
         String chosenActionType = action.getActionType();
 
         if (chosenActionType.equals(REST_ACTION_TYPE)) {
-            //set target as current persons turn
-            target = AlliedArray.get(i);
+            /**
+             * Set target as current persons turn because you can only rest yourself, you can rest for others
+             */
+            target = alliedArray.get(i);
         }
-        if (chosenActionType.equals(HELP_ACTION_TYPE)) {
-            target = currentCharacter.getTarget(AlliedArray, MobArray, action);
-
-        }
-        if (chosenActionType.equals(HARM_ACTION_TYPE)) {
-            target = currentCharacter.getTarget(AlliedArray, MobArray, action);
+        else{
+            target = currentCharacter.getTarget(alliedArray, oppositionArray, action);
         }
         target.effect(currentCharacter, action);
 
     }
 
     private boolean checkDead(Character currentCharacter) {
-        // Checks if the current character is dead
+        /**
+         * Checks if the character being looked at is dead
+         */
         if (currentCharacter.getHealth() <= 0) {
             if (_heroArray.contains(currentCharacter)) {
                 _heroArray.remove(currentCharacter);
@@ -123,6 +139,12 @@ public class Fight {
         }
     }
 
+    /**
+     * Adds both list so checkDeadPlayers can go through all characters at once
+     * @param list1 first array given
+     * @param list2 second array given
+     * @return returns the combined two lists
+     */
     private ArrayList<Character> addLists(ArrayList<Character> list1, ArrayList<Character> list2) {
         ArrayList<Character> result = new ArrayList<>();
         int i = 0;
@@ -139,15 +161,18 @@ public class Fight {
         return result;
     }
 
+    /**
+     * Goes through both lists and prints out their information
+     */
     private void printCharacterStats() {
         System.out.println("\nYour Team:");
-        for (int i = 0; i < _heroArray.size(); i++) {
-            System.out.println(_heroArray.get(i).getName().substring(0, 1).toUpperCase() + _heroArray.get(i).getName().substring(1) + ":\tHealth:" + _heroArray.get(i).getHealth() + "\tAction Points:" + _heroArray.get(i).getActionPoints());
+        for (Character character : _heroArray) {
+            System.out.println(character.getName().substring(0, 1).toUpperCase() + character.getName().substring(1) + ":\tHealth:" + character.getHealth() + "\tAction Points:" + character.getActionPoints());
         }
 
         System.out.println("\nEnemy Team:");
-        for (int j = 0; j < _enemyArray.size(); j++) {
-            System.out.println(_enemyArray.get(j).getName().substring(0, 1).toUpperCase() + _enemyArray.get(j).getName().substring(1) + ":\tHealth:" + _enemyArray.get(j).getHealth() + "\tAction Points:" + _enemyArray.get(j).getActionPoints());
+        for (Character character : _enemyArray) {
+            System.out.println(character.getName().substring(0, 1).toUpperCase() + character.getName().substring(1) + ":\tHealth:" + character.getHealth() + "\tAction Points:" + character.getActionPoints());
         }
     }
 }

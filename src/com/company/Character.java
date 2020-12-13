@@ -15,29 +15,55 @@ abstract public class Character {
     final static public String HEALTH_STAT_EFFECT = "health";
     final static public String ACTION_POINTS_STAT_EFFECT = "actionPoints";
 
-    private String _name;
+    private final String _name;
     protected int _health;
     protected int _actionPoints;
     protected int _healthCap;
     protected int _actionPointCap;
     protected int _level;
 
+    /**
+     * Super constructor for the player and NPC classes
+     * @param name the name of the Character
+     * @param health the Characters health
+     * @param actionPoints the Characters action points
+     */
+
     public Character(String name, int health, int actionPoints) {
         this._name = name;
         this._health = health;
         this._actionPoints = actionPoints;
+        /**
+         * Adds a cap so leveling up means more
+         */
         this._healthCap = health;
         this._actionPointCap = actionPoints;
         this._level = 1;
     }
 
+    /**
+     * rolls the dice and returns a random number between 0-20
+     * @return returns the random number
+     */
     protected int d20() {
         Random _random = new Random();
         return _random.nextInt(20);
     }
 
-    public abstract Character getTarget(ArrayList<Character> teamArray, ArrayList<Character> oppositionArray, Action givenAction);
+    /**
+     * abstract methods
+     * @param teamArray the array the current character is fighting with
+     * @param oppositionArray the array the current character is fighting against
+     * @param givenAction which action the Character chose
+     * @return returns the chosen action or target
+     */
+    abstract public Character getTarget(ArrayList<Character> teamArray, ArrayList<Character> oppositionArray, Action givenAction);
+    abstract public Action getAction(ArrayList<Character> teamArray, ArrayList<Character> enemyArray, Character currentNPC);
 
+    /**
+     * Getter methods
+     * @return returns the variables
+     */
     public int getHealth() {
         return _health;
     }
@@ -80,16 +106,19 @@ abstract public class Character {
             if (currentActionType.equals(HELP_ACTION_TYPE)) {
                 System.out.println(characterDoingAction.getName() + " rolled a " + ranInt + " healing " + this.getName() + " for " + chosenAction.getEffect() + " " + chosenAction.getStatEffect());
                 characterDoingAction.increaseExperiencePoints();
-                return;
             }
         } else {
             System.out.println(characterDoingAction.getName() + " rolled a " + ranInt + " missing " + this.getName());
-            return;
         }
     }
 
-    abstract public Action getAction(ArrayList<Character> teamArray, ArrayList<Character> enemyArray, Character currentNPC);
-
+    /**
+     * Checks if the character has enough action points to do the given action
+     * if they have enough action points it subtracts the number of action points needed to do the action
+     * @param currentCharacter the character preforming the action
+     * @param currentAction the action said character is preforming
+     * @return returns true or false if the character can preform their chosen action
+     */
     protected boolean checkAndChangeActionPoints(Character currentCharacter, Action currentAction) {
         if (currentCharacter.getActionPoints() < currentAction.getApCost()) {
             return false;
@@ -98,6 +127,10 @@ abstract public class Character {
         return true;
     }
 
+    /**
+     * since the effect method is called on the target this method does the chosen action on the target
+     * @param chosenAction what the current action is
+     */
     private void effectCharacter(Action chosenAction) {
         if (chosenAction.getStatEffect().equals(HEALTH_STAT_EFFECT)) {
             this._health = _health + chosenAction.getEffect();
@@ -113,8 +146,15 @@ abstract public class Character {
         }
     }
 
+    /**
+     * abstract method
+     */
     abstract public void levelUp();
 
+    /**
+     * has implementation in the player class, not abstract because it needs to be called for each successful action
+     * added it here so it doesn't need to check if the chosen characterDoingAction is a player
+     */
     public void increaseExperiencePoints() {
         //only gets added for player
     }
