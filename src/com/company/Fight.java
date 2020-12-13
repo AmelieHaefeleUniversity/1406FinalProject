@@ -74,8 +74,8 @@ public class Fight {
     }
     private void checkDeadPlayers(){
         for(int i = 0; i <_charactersInFight.size(); i++){
-            Character obj = _charactersInFight.get(i);
-            checkDead(obj);
+            Character currentCharacter = _charactersInFight.get(i);
+            checkDead(currentCharacter);
         }
     }
 
@@ -83,26 +83,26 @@ public class Fight {
     private void turn(ArrayList<Character> AlliedArray , ArrayList<Character> MobArray, int i){
         // Sets the current character to get info from, so they can have their turn
         checkDeadPlayers();
-        Character obj = AlliedArray.get(i);  // obj is bae variable name PH
+        Character currentCharacter = AlliedArray.get(i);  // currentCharacter is bae variable name PH
 
         // Checks if the current Character is dead, if so they are removed from the array of possible characters
-        if (!checkDead(obj)){
+        if (!checkDead(currentCharacter)){
             return;
         }
-        this._action = obj.getAction(AlliedArray,MobArray,obj);
+        this._action = currentCharacter.getAction(AlliedArray,MobArray,currentCharacter);
         String chosenActionType = _action.getActionType();
         if (chosenActionType.equals(REST_ACTION_TYPE)){
             //set target as current persons turn
             this._target = AlliedArray.get(i);
         }
         if (chosenActionType.equals(HELP_ACTION_TYPE)){
-            this._target = obj.getTarget(AlliedArray,MobArray,_action);
+            this._target = currentCharacter.getTarget(AlliedArray,MobArray,_action);
 
         }
         if (chosenActionType.equals(HARM_ACTION_TYPE)) {
-            this._target = obj.getTarget(AlliedArray,MobArray,_action);
+            this._target = currentCharacter.getTarget(AlliedArray,MobArray,_action);
         }
-        _target.effect(_action, obj,_target);
+        _target.effect(_action, currentCharacter, _target);
 
     }
 

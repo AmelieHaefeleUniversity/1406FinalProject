@@ -60,8 +60,8 @@ public class Player extends Character {
         while(true){
             System.out.println("\nWhat action would you like to do?\n");
             String actionName = input.nextLine().toLowerCase();
-            if(_playerActionList.get(actionName) != null){
-                if(checkAndChangeActionPoints(obj,_playerActionList.get(actionName))){
+            if (_playerActionList.get(actionName) != null){
+                if (checkAndChangeActionPoints(obj,_playerActionList.get(actionName))){
                     return _playerActionList.get(actionName);
                 }
                 else{
@@ -80,13 +80,13 @@ public class Player extends Character {
         while(true){
             System.out.println("Would you like to increase you overall health or action points by 5?\n");
             String toIncrease = input.nextLine().toLowerCase();
-            if(toIncrease.equals(HEALTH_STAT_EFFECT)){
+            if (toIncrease.equals(HEALTH_STAT_EFFECT)){
                 this._healthCap = _healthCap + 5;
                 this._health = _healthCap;
                 this._actionPoints = _actionPointCap;
                 return;
             }
-            if(toIncrease.equals(ACTION_POINTS_STATS_EFFECT)){
+            if (toIncrease.equals(ACTION_POINTS_STATS_EFFECT)){
                 this._actionPointCap = _actionPointCap +5;
                 this._actionPoints = _actionPointCap;
                 this._health = _healthCap;
@@ -103,7 +103,7 @@ public class Player extends Character {
             Action firework = new Action(3,HARM_ACTION_TYPE,-6,HEALTH_STAT_EFFECT);
             _playerActionList.put("firework",firework);
         }
-        if(level == 3) {
+        if (level == 3) {
             Action examsOver = new Action(0,REST_ACTION_TYPE, 5, ACTION_POINTS_STATS_EFFECT);
             _playerActionList.put("exams over", examsOver);
         }
