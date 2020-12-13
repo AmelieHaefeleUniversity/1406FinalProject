@@ -32,9 +32,9 @@ public class PrintMethods {
         if (i == 0) {
             System.out.println("\n\nAfter a while of traveling you enter a small forest clearing. “I roll a perception check.” you say while rolling a dice,\n" +
                     " “Yes a 16!”. You listen carefully and hear what sound like two voices in the background. They jump out brandishing their fierce \n" +
-                    "claws! Some goblins approach and attack you! \n You encountered: \n Goblin 1 and Goblin \n They don't look too difficult \n Goblin" +
+                    "claws! Some goblins approach and attack you! \n You encountered: \n Goblin 1 and Goblin 2 \n They don't look too difficult \n Goblin" +
                     " 2: Hey! My name's Alastair and this is my friend Prescott. I think we deserve to actually have our names said!\n With that Danielle " +
-                    "smiles and lets a small chuckle but quickly hides it. \"Uhhh ok \n You encountered: \n Alastair \n Prescott" +
+                    "smiles and lets a small chuckle but quickly hides it. \"Uhhh ok\" \n You encountered: \n Alastair and Prescott" +
                     " \n Alastair: Thank you, now prepare to die! \n");
         }
         if (i == 1) {
@@ -45,8 +45,8 @@ public class PrintMethods {
                     "if-” Peter’s ranting was cut off short by Danielle who had heard this spiral too many times to count “and if you don’t get a good job, you won’t make money,\n" +
                     " and if you don’t make money, you’ll be homeless and live on the streets,” she said laughing. “Precisely,” Peter replied, grabbing a red bull. “Stop spiraling,\n" +
                     " you'll be fine you’re the smartest kid in our class just please, take a break,” you say pleadingly. “Fine,” Peter replies, putting down his notepad.\n" +
-                    "“It’s all gonna be fine,” Danielle says laughing. You pass through a small town just as a couple villagers run past you fleeing from something.\n" +
-                    "“Looks like someone needs our help!” Danelle says nudging Peter. From the commotion emerges what look like two small rabbits. Just as Peter begins\n" +
+                    "“It’s all gonna be fine,” Danielle says laughing. \n\nYou pass through a small town just as a couple villagers run past you fleeing from something.\n" +
+                    "“Looks like someone needs our help!” Danielle says nudging Peter. From the commotion emerges what look like two small rabbits. Just as Peter begins\n" +
                     "to laugh one of the bunnies latch onto a fleeing villager ripping their throat out. \n" +
                     "You encountered:\nFluffy\nHoppy\nand Cinnabun\nVery fitting names.\nI wonder what they might be in reference to?\n");
         }
@@ -56,8 +56,8 @@ public class PrintMethods {
                     "any hope you may still be holding onto. But you enter anyway because there’s no way but forward. \n" +
                     "You feel your body giving up as you shrink to the floorgasping for air “It’s not fair!” You yell into the void, but no one answers.\n" +
                     "Just as you start to feel the unfamiliar grasp of defeat set in a bright spark fills your heart healing you to full health. “Hey idiot\n" +
-                    "you didn’t think you could get through this alone could you?” Danelle said standing at your side. “Ya c’mon dude we’re always here for\n" +
-                    "you!” Peter said running up and hugging you. Danelle smiled, giving you a hard but friendly pat on the back, “Let’s beat this nobody\n" +
+                    "you didn’t think you could get through this alone could you?” Danielle said standing at your side. “Ya c’mon dude we’re always here for\n" +
+                    "you!” Peter said running up and hugging you. Danielle smiled, giving you a hard but friendly pat on the back, “Let’s beat this nobody\n" +
                     "together, no point in doing it alone.” You feel a sense of hope rising in your chest, and this hope becomes your weapon. Congrats! You\n" +
                     "gain the sword of hope, I don’t have time to come up with a more creative name so it’ll have to do. With your friends at your side, you\n" +
                     "may fall down, you may struggle but in the end you will win!\n");
@@ -66,8 +66,8 @@ public class PrintMethods {
 
     public void printCompletedGame() {
         System.out.println("\n\n“So that's the end,” Peter said smiling “we won and conquered evil!”. “Don’t worry I’m sure this won’t be the last challenge we’ll\n" +
-                " have to face,” Danelle replied. “I think that's a good note to leave it on tonight though,” you say. “Good timing wanna head down to grab a\n" +
-                "drink, there’s someone very special I’d like you guys to meet,” Danelle said, grabbing her coat and keys. You and Peter both give each other an\n" +
+                " have to face,” Danielle replied. “I think that's a good note to leave it on tonight though,” you say. “Good timing wanna head down to grab a\n" +
+                "drink, there’s someone very special I’d like you guys to meet,” Danielle said, grabbing her coat and keys. You and Peter both give each other an\n" +
                 "excited look and get ready to go. This particular campaign ends but it’s not over for our young-ish adventures and their team may grow in time.\n" +
                 "There will be more struggles, more hardships, but one thing that stays constant is your support.\n" +
                 "So don’t forget those who are close to you because you’re never truly alone!\n");

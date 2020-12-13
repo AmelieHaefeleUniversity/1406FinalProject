@@ -88,26 +88,30 @@ abstract public class Character {
      */
     public void effect(Character characterDoingAction, Action chosenAction) {
         int ranInt = d20();
+        String characterDoingActionName = characterDoingAction.getName();
+        String targetName = this.getName();
+        characterDoingActionName = characterDoingActionName.substring(0, 1).toUpperCase() + characterDoingActionName.substring(1);
+        targetName = targetName.substring(0, 1).toUpperCase() + targetName.substring(1);
 
         String currentActionType = chosenAction.getActionType();
         if (currentActionType.equals(REST_ACTION_TYPE)) {
             this.effectCharacter(chosenAction);
-            System.out.println(characterDoingAction.getName() + " rested and regained " + chosenAction.getEffect() + " " + chosenAction.getStatEffect());
+            System.out.println(characterDoingActionName + " "+chosenAction.getActionName()+"ed and regained " + chosenAction.getEffect() + " " + chosenAction.getStatEffect());
             return;
         }
 
         if (ranInt >= 10) {
             effectCharacter(chosenAction);
             if (currentActionType.equals(HARM_ACTION_TYPE)) {
-                System.out.println(characterDoingAction.getName() + " rolled a " + ranInt + " hitting " + this.getName() + " for " + chosenAction.getEffect() + " " + chosenAction.getStatEffect());
+                System.out.println(characterDoingActionName + " rolled a and " + ranInt + " "+chosenAction.getActionName()+"ed " + targetName + " for " + chosenAction.getEffect() + " " + chosenAction.getStatEffect());
                 characterDoingAction.increaseExperiencePoints();
             }
             if (currentActionType.equals(HELP_ACTION_TYPE)) {
-                System.out.println(characterDoingAction.getName() + " rolled a " + ranInt + " healing " + this.getName() + " for " + chosenAction.getEffect() + " " + chosenAction.getStatEffect());
+                System.out.println(characterDoingActionName + " rolled a and " + ranInt + " "+chosenAction.getActionName()+"ed " + targetName+ " for " + chosenAction.getEffect() + " " + chosenAction.getStatEffect());
                 characterDoingAction.increaseExperiencePoints();
             }
         } else {
-            System.out.println(characterDoingAction.getName() + " rolled a " + ranInt + " missing " + this.getName());
+            System.out.println(characterDoingActionName + " rolled a " + ranInt + " missing " + targetName+" with a/an "+chosenAction.getActionName());
         }
     }
 

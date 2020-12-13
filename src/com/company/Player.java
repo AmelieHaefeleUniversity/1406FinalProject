@@ -108,7 +108,7 @@ public class Player extends Character {
         levelLootSystem(_level);
         Scanner input = new Scanner(System.in);
         while (true) {
-            System.out.println("Would you like to increase you overall health or action points by 5?\n");
+            System.out.println("\n Congrats you leveled up! \n Would you like to increase you overall health or action points by 5?\n");
             String toIncrease = input.nextLine().toLowerCase();
             if (toIncrease.equals(HEALTH_STAT_EFFECT)) {
                 this._healthCap = _healthCap + 5;
@@ -134,12 +134,16 @@ public class Player extends Character {
      */
     public void levelLootSystem(int level) {
         if (level == 2) {
-            Action firework = new Action(3, HARM_ACTION_TYPE, -6, HEALTH_STAT_EFFECT);
+            Action firework = new Action(3, HARM_ACTION_TYPE, -6, HEALTH_STAT_EFFECT,"firework");
             _playerActionList.put("firework", firework);
+            System.out.println("Congrats you found a new action\n Cause baby you're a fiiiiiiirewooooork\n");
+            System.out.println("Firework" + "\nAction Point Cost:" + firework.getApCost() + " \tAction Type:" + firework.getActionType() + " \tAction Effect:" + firework.getEffect()+ " \tStat Effected:" + firework.getStatEffect() + "\n");
         }
         if (level == 3) {
-            Action examsOver = new Action(0, REST_ACTION_TYPE, 5, ACTION_POINTS_STATS_EFFECT);
+            Action examsOver = new Action(0, REST_ACTION_TYPE, 5, ACTION_POINTS_STATS_EFFECT,"exam over rest");
             _playerActionList.put("exams over", examsOver);
+            System.out.println("Congrats you found a new action\n I can't wait for this one\n");
+            System.out.println("Exams Over" + "\nAction Point Cost:" + examsOver.getApCost() + " \tAction Type:" + examsOver.getActionType() + " \tAction Effect:" + examsOver.getEffect()+ " \tStat Effected:" + examsOver.getStatEffect() + "\n");
         }
 
     }
@@ -163,8 +167,9 @@ public class Player extends Character {
      * Special method that adds a new action for the boss fight
      */
     public void addHopeSword() {
-        Action hopeSword = new Action(2, HARM_ACTION_TYPE, -10, HEALTH_STAT_EFFECT);
-        _playerActionList.put("Hope Sword", hopeSword);
+        Action hopeSword = new Action(2, HARM_ACTION_TYPE, -10, HEALTH_STAT_EFFECT,"hope sword slash");
+        _playerActionList.put("hope sword", hopeSword);
+        System.out.println("Firework" + "\nAction Point Cost:" + hopeSword.getApCost() + " \tAction Type:" + hopeSword.getActionType() + " \tAction Effect:" + hopeSword.getEffect()+ " \tStat Effected:" + hopeSword.getStatEffect() + "\n");
     }
 
 }
