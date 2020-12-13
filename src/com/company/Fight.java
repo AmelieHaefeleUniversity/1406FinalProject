@@ -2,6 +2,9 @@ package com.company;
 
 import java.util.ArrayList;
 
+/**
+ * Class that does the fights and keeps going until a team has won or lost
+ */
 public class Fight {
     /**
      * Setting up String variables and needed Arrays

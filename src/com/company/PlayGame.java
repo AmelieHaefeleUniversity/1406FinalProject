@@ -3,6 +3,9 @@ package com.company;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Main class that handles the logic of playing the game
+ */
 public class PlayGame {
     /**
      * Setting up the variables needed for this class

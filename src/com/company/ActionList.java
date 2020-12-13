@@ -2,6 +2,9 @@ package com.company;
 
 import java.util.HashMap;
 
+/**
+ * Creates multiple actions for action lists
+ */
 public class ActionList {
     /**
      * Utility Class to store information and variables

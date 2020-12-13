@@ -1,5 +1,8 @@
 package com.company;
 
+/**
+ * Sets up Action objects so they can be used in battle
+ */
 public class Action {
     /**
      * Set up all needed variables for the actions to have

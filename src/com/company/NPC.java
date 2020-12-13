@@ -3,6 +3,9 @@ package com.company;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Differs from Character because each NPC has a playstyle needed for the AI to work
+ */
 public class NPC extends Character {
     /**
      * Set up String variables

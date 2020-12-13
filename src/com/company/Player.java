@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 /**
-Represents the human player.
+Represents the human player all actions and targets are gotten through user input
  */
 public class Player extends Character {
     final static public String ACTION_POINTS_STATS_EFFECT = "action points";
