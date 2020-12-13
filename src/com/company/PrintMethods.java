@@ -6,10 +6,10 @@ package com.company;
 public class PrintMethods {
 
     public void printRule() {
-        System.out.println(("\n\nTo move through the game to get to another screen simply press enter or anything you want when prompted by\n" +
-                "the console. At the start of your turn a list of all actions you can preform and information about them \n" +
+        System.out.println(("\nAt the start of your turn a list of all actions you can preform and information about them \n" +
                 "will be displayed, simply type in the action you want to preform then hit enter. Similarly a list of\n" +
                 "possible targets will be displayed. Enter the full name of your target into the console and hit enter.\n" +
+                "Note the input is case insensitive.\n" +
                 "Remember to have fun. Good luck!"));
     }
 
