@@ -1,15 +1,18 @@
 package com.company;
 import java.util.ArrayList;
 
-public class fight {
+public class Fight {
 
     private ArrayList<Character> _heroArray;
     private ArrayList<Character> _enemyArray;
     private Character _target;
-    private action _action;
+    private Action _action;
     private ArrayList<Character> _charactersInFight;
+    final static public String REST_ACTION_TYPE = "neutral";
+    final static public String HARM_ACTION_TYPE = "harmful";
+    final static public String HELP_ACTION_TYPE = "helpful";
 
-    public fight(ArrayList<Character> heroArray, ArrayList<Character> enemyArray) {
+    public Fight(ArrayList<Character> heroArray, ArrayList<Character> enemyArray) {
         this._heroArray = heroArray;
         this._enemyArray = enemyArray;
         this._charactersInFight = addLists(heroArray, enemyArray);
@@ -24,7 +27,6 @@ public class fight {
                 System.out.println("Congrats you won!");
                 return true;
             }
-
             // Checks if the player got removed "dead"
             if (_heroArray.size() == 0) {
                 System.out.println("You lost better luck next time");
@@ -35,6 +37,7 @@ public class fight {
             for (int i = 0; i< _heroArray.size(); i++){
                 //always pass in the player first so this can be checked
                 // Checks if someone won
+                checkDeadPlayers();
                 if (_enemyArray.size() == 0) {
                     System.out.println("Congrats you won!");
                     return true;
@@ -45,13 +48,14 @@ public class fight {
                     System.out.println("You lost better luck next time");
                     return false;
                 }
-                Turn(_heroArray,_enemyArray,i);
+                turn(_heroArray,_enemyArray,i);
 
             }
             checkDeadPlayers();
             for (int j = 0; j< _enemyArray.size(); j++){
                 // Checks if the player has won
                 //always pass in the player first so this can be checked
+                checkDeadPlayers();
                 if (_enemyArray.size() == 0) {
                     System.out.println("Congrats you won!");
                     return true;
@@ -62,7 +66,7 @@ public class fight {
                     System.out.println("You lost better luck next time");
                     return false;
                 }
-                Turn(_enemyArray,_heroArray,j);
+                turn(_enemyArray,_heroArray,j);
             }
         }
         System.out.println("Error this point should not be read");
@@ -75,10 +79,11 @@ public class fight {
         }
     }
 
-    private void Turn(ArrayList<Character> AlliedArray , ArrayList<Character> MobArray, int i){
+    // PH methods start with a lower case
+    private void turn(ArrayList<Character> AlliedArray , ArrayList<Character> MobArray, int i){
         // Sets the current character to get info from, so they can have their turn
         checkDeadPlayers();
-        Character obj = AlliedArray.get(i);
+        Character obj = AlliedArray.get(i);  // obj is bae variable name PH
 
         // Checks if the current Character is dead, if so they are removed from the array of possible characters
         if (!checkDead(obj)){
@@ -86,29 +91,29 @@ public class fight {
         }
         this._action = obj.getAction(AlliedArray,MobArray,obj);
         String chosenActionType = _action.getActionType();
-        if (chosenActionType.equals("neutral")){
+        if (chosenActionType.equals(REST_ACTION_TYPE)){
             //set target as current persons turn
             this._target = AlliedArray.get(i);
         }
-        if (chosenActionType.equals("helpful")){
+        if (chosenActionType.equals(HELP_ACTION_TYPE)){
             this._target = obj.getTarget(AlliedArray,MobArray,_action);
 
         }
-        if (chosenActionType.equals("harmful")) {
+        if (chosenActionType.equals(HARM_ACTION_TYPE)) {
             this._target = obj.getTarget(AlliedArray,MobArray,_action);
         }
         _target.effect(_action, obj,_target);
 
     }
 
-    private boolean checkDead(Character obj){
+    private boolean checkDead(Character currentCharacter){
         // Checks if the current character is dead
-        if (obj.getHealth() <= 0){
-            if (_heroArray.contains(obj)){
-                _heroArray.remove(obj);
+        if (currentCharacter.getHealth() <= 0){
+            if (_heroArray.contains(currentCharacter)){
+                _heroArray.remove(currentCharacter);
             }
             else{
-                _enemyArray.remove(obj);
+                _enemyArray.remove(currentCharacter);
             }
             return false;
         }

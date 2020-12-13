@@ -2,15 +2,13 @@ package com.company;
 
 import java.util.ArrayList;
 
-import static org.junit.Assert.*;
-
 public class fightTest {
 
     @org.junit.Test
     public void playFight() {
-        enemy Carl = new enemy("fighter","Carl",20,15,1);
-        follower Macey = new follower("fighter","Macey",20,15);
-        player Amelie = new player("Amelie");
+        Enemy Carl = new Enemy("fighter","Carl",20,15,1);
+        Follower Macey = new Follower("fighter","Macey",20,15);
+        Player Amelie = new Player("Amelie");
         ArrayList<Character> _testEnemyArray = new ArrayList<>();
         ArrayList<Character> _testHeroArray = new ArrayList<>();
         _testEnemyArray.add(Carl);

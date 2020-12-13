@@ -1,6 +1,6 @@
 package com.company;
 
-public class printMethods {
+public class PrintMethods {
 
     public void printRule(){
         System.out.println(("\n\nTo move through the game to get to another screen simply press enter or anything you want when prompted by\n"+

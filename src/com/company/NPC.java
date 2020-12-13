@@ -3,10 +3,20 @@ package com.company;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class NPC extends Character{
+public class NPC extends Character{  // Space between end of string and { PH
     private final String _playStyle;
-    public HashMap<String, action> _NPCActionList;
-    actionList _objActionList = new actionList();
+    public HashMap<String, Action> _NPCActionList;  // Never public PH
+    ActionList _objActionList = new ActionList();
+    final static public String HELP_ACTION_TYPE = "helpful";
+    final static public String HEALER_TYPE = "healer";
+    final static public String SPELL_CASTER_TYPE = "spellCaster";
+    final static public String FIGHTER_TYPE = "fighter";
+    final static public String FIREBALL_ACTION = "fireball";
+    final static public String HEAL_ACTION = "heal";
+    final static public String REST_ACTION = "rest";
+    final static public String STAB_ACTION = "stab";
+
+
 
 
     public NPC(String playStyle,String name, int health, int actionPoints){
@@ -16,66 +26,66 @@ public class NPC extends Character{
     }
 
 
-    public action getAction(ArrayList<Character> teamArray, ArrayList<Character> enemyArray, Character currentNPC){
-        if (_playStyle.equals("healer")){
+    public Action getAction(ArrayList<Character> teamArray, ArrayList<Character> enemyArray, Character currentNPC){
+        if (_playStyle.equals(HEALER_TYPE)){
             return getHealerAction(teamArray, currentNPC);
         }
-        if(_playStyle.equals("fighter")){
+        if(_playStyle.equals(FIGHTER_TYPE)){
             return getFighterAction(currentNPC);
         }
-        if (_playStyle.equals("spellCaster")){
+        if (_playStyle.equals(SPELL_CASTER_TYPE)){
             return getSpellCasterAction(currentNPC);
         }
         return null;
     }
 
-    private action getHealerAction(ArrayList<Character> teamArray,Character currentNPC){
+    private Action getHealerAction(ArrayList<Character> teamArray, Character currentNPC){
         for (Character character : teamArray) {
             if (character.getHealth() < 15) {
-                if (enoughActionPoint(currentNPC, _NPCActionList.get("heal"))) {
-                    return _NPCActionList.get("heal");
+                if (enoughActionPoint(currentNPC, _NPCActionList.get(HEAL_ACTION))) {
+                    return _NPCActionList.get(HEAL_ACTION);
                 }
             }
         }
         // Return something else please
-        if (enoughActionPoint(currentNPC,_NPCActionList.get("fireball"))){
-            return _NPCActionList.get("fireball");
+        if (enoughActionPoint(currentNPC,_NPCActionList.get(FIREBALL_ACTION))){
+            return _NPCActionList.get(FIREBALL_ACTION);
         }
-        return _NPCActionList.get("rest");
+        return _NPCActionList.get(REST_ACTION);
     }
-    private action getFighterAction(Character currentNPC){
+    private Action getFighterAction(Character currentNPC){
         // change to melee attack that costs less Action Points
-        if (enoughActionPoint(currentNPC,_NPCActionList.get("stab"))){
-            return _NPCActionList.get("stab");
+        if (enoughActionPoint(currentNPC,_NPCActionList.get(STAB_ACTION))){
+            return _NPCActionList.get(STAB_ACTION);
         }
-        return _NPCActionList.get("rest");
+        return _NPCActionList.get(REST_ACTION);
 
     }
-    private action getSpellCasterAction(Character currentNPC){
-        if (enoughActionPoint(currentNPC,_NPCActionList.get("fireball"))){
-            return _NPCActionList.get("fireball");
+    private Action getSpellCasterAction(Character currentNPC){
+        if (enoughActionPoint(currentNPC,_NPCActionList.get(FIREBALL_ACTION))){
+            return _NPCActionList.get(FIREBALL_ACTION);
         }
-        return _NPCActionList.get("rest");
+        return _NPCActionList.get(REST_ACTION);
 
     }
 
 
-    public Character getTarget(ArrayList<Character> teamArray, ArrayList<Character> oppositionArray, action givenAction){
-        if (_playStyle.equals("healer")){
+    public Character getTarget(ArrayList<Character> teamArray, ArrayList<Character> oppositionArray, Action givenAction){
+        if (_playStyle.equals(HEALER_TYPE)){
             return getHealerTarget(teamArray, oppositionArray,givenAction );
         }
-        if(_playStyle.equals("fighter")){
+        if(_playStyle.equals(FIGHTER_TYPE)){
             return getFighterTarget(oppositionArray);
         }
-        if (_playStyle.equals("spellCaster")){
+        if (_playStyle.equals(SPELL_CASTER_TYPE)){
             return getSpellCasterTarget(oppositionArray);
         }
         else{
             return null;
         }
     }
-    private Character getHealerTarget(ArrayList<Character> teamArray, ArrayList<Character> oppositionArray, action givenAction) {
-        if (givenAction.getActionType().equals("helpful")){
+    private Character getHealerTarget(ArrayList<Character> teamArray, ArrayList<Character> oppositionArray, Action givenAction) {
+        if (givenAction.getActionType().equals(HELP_ACTION_TYPE)){
            return lowestHealth(teamArray);
         }
         else{

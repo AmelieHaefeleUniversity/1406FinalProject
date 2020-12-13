@@ -2,24 +2,29 @@ package com.company;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
-public class player extends Character {
-    actionList _objActionList = new actionList();
-    public HashMap<String, action> _playerActionList;
+public class Player extends Character {
+    ActionList _objActionList = new ActionList();
+    public HashMap<String, Action> _playerActionList;
     private ArrayList<Character> _givenArray;
     private int _experiencePoints;
+    final static public String REST_ACTION_TYPE = "neutral";
+    final static public String HARM_ACTION_TYPE = "harmful";
+    final static public String HELP_ACTION_TYPE = "helpful";
+    final static public String HEALTH_STAT_EFFECT = "health";
+    final static public String ACTION_POINTS_STATS_EFFECT = "actionPoints";
 
-    public player(String name){
+    public Player(String name){
         super(name, 20, 15);
         _playerActionList = _objActionList.getPlayerActions();
         this._experiencePoints = 0;
     }
 
-    public Character getTarget(ArrayList<Character> teamArray, ArrayList<Character> oppositionArray, action givenAction){
-        if (givenAction.getActionType().equals("helpful")){
+    public Character getTarget(ArrayList<Character> teamArray, ArrayList<Character> oppositionArray, Action givenAction){
+        if (givenAction.getActionType().equals(HELP_ACTION_TYPE)){
             this._givenArray = teamArray;
 
         }
-        if (givenAction.getActionType().equals("harmful")) {
+        if (givenAction.getActionType().equals(HARM_ACTION_TYPE)) {
             this._givenArray = oppositionArray;
         }
         System.out.println("Target List:\n");
@@ -43,14 +48,14 @@ public class player extends Character {
 
     }
 
-    public action getAction(ArrayList<Character> heroArray, ArrayList<Character> enemyArray, Character obj){
+    public Action getAction(ArrayList<Character> heroArray, ArrayList<Character> enemyArray, Character obj){
         System.out.println("\nAction List:\n");
         for (String actionName: _playerActionList.keySet() ){
-            action currentAction = _playerActionList.get(actionName);
+            Action currentAction = _playerActionList.get(actionName);
             int currentActionPointCost = currentAction.getApCost();
             int currentEffect = currentAction.getEffect();
             String currentActionType = currentAction.getActionType();
-            String currentStatEffected = currentAction.getActionType();
+            String currentStatEffected = currentAction.getStatEffect();
             actionName  = actionName.substring(0, 1).toUpperCase() + actionName.substring(1);
             System.out.println(actionName +"\nAction Point Cost:"+currentActionPointCost+" \tAction Type:"+currentActionType+" \tAction Effect:"+currentEffect+" \tStat Effected:"+currentStatEffected+"\n");
         }
@@ -70,6 +75,7 @@ public class player extends Character {
             System.out.println("Please enter a valid action\n");
         }
     }
+
     public void levelUp(){
         this._level = _level +1;
         this._experiencePoints = 0;
@@ -78,12 +84,12 @@ public class player extends Character {
         while(true){
             System.out.println("Would you like to increase you overall health or action points by 5?\n");
             String toIncrease = input.nextLine().toLowerCase();
-            if(toIncrease.equals("health")){
+            if(toIncrease.equals(HEALTH_STAT_EFFECT)){
                 this._healthCap = _healthCap + 5;
                 this._health = _healthCap;
                 return;
             }
-            if(toIncrease.equals("action points")){
+            if(toIncrease.equals(ACTION_POINTS_STATS_EFFECT)){
                 this._actionPointCap = _actionPointCap +5;
                 this._actionPoints = _actionPointCap;
                 return;
@@ -93,26 +99,29 @@ public class player extends Character {
         }
 
     }
+
     public void levelLootSystem (int level){
         if (level == 2){
-            action firework = new action(3,"harmful",-6,"health");
+            Action firework = new Action(3,HARM_ACTION_TYPE,-6,HEALTH_STAT_EFFECT);
             _playerActionList.put("firework",firework);
         }
         if(level == 3) {
-            action examsOver = new action(0, "helpful", 5, "actionPoints");
+            Action examsOver = new Action(0,REST_ACTION_TYPE, 5, ACTION_POINTS_STATS_EFFECT);
             _playerActionList.put("exams over", examsOver);
         }
 
     }
 
     public void increaseExperiencePoints(){
-        this._experiencePoints = _experiencePoints + 20;
+        this._experiencePoints = _experiencePoints + 50;
     }
+
     public int getExperiencePoints(){
         return _experiencePoints;
     }
+
     public void addHopeSword(){
-        action hopeSword = new action(2,"harmful",-10,"health");
+        Action hopeSword = new Action(2,HARM_ACTION_TYPE,-10,HEALTH_STAT_EFFECT);
         _playerActionList.put("Hope Sword",hopeSword);
     }
 
