@@ -64,6 +64,7 @@ public class PlayGame {
                  */
                 fight.restoreAllCharacters();
             }
+            fight.restoreAllCharacters();
             /**
              * if the player has more than or equal to 100 experience points the leveled up method is called on all Characters in the good guy lsit
              */
@@ -121,7 +122,7 @@ public class PlayGame {
         fightTwoEnemyList.add(1, hoppy);
         fightTwoEnemyList.add(2, cinnabun);
 
-        Enemy officium = new Enemy("spellCaster", "officium", 50, 20, 5);
+        Enemy officium = new Enemy("spellCaster", "officium", 50, 50, 5);
         fightThreeEnemyList.add(0, officium);
 
         Follower peter = new Follower("healer", "peter", 20, 15);
