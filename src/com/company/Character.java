@@ -101,7 +101,6 @@ abstract public class Character {
             if (currentActionType.equals(HARM_ACTION_TYPE)) {
                 System.out.println(characterDoingAction.getName() + " rolled a " + ranInt + " hitting " + this.getName() + " for " + chosenAction.getEffect() + " " + chosenAction.getStatEffect());
                 characterDoingAction.increaseExperiencePoints();
-                return;
             }
             if (currentActionType.equals(HELP_ACTION_TYPE)) {
                 System.out.println(characterDoingAction.getName() + " rolled a " + ranInt + " healing " + this.getName() + " for " + chosenAction.getEffect() + " " + chosenAction.getStatEffect());

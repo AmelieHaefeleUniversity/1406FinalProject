@@ -65,8 +65,8 @@ public class PlayGame {
                 /**
                  * if the player has more than or equal to 100 experience points the leveled up method is called on all Characters in the good guy lsit
                  */
-                int ep = _playerCharacter.getExperiencePoints();
-                if (ep >= 100)
+                int playerExperiencePoints = _playerCharacter.getExperiencePoints();
+                if (playerExperiencePoints >= 100)
                     for (Character character : _playerTeam) {
                         character.levelUp();
                     }
