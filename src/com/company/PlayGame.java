@@ -49,7 +49,6 @@ public class PlayGame {
                  * Do Fight
                  */
                 if (!fight.playFight()) {
-                    keepGoing();
                     if (!keepGoing()) {
                         System.out.println("Better luck next time");
                         return;
@@ -122,8 +121,8 @@ public class PlayGame {
         Enemy officium = new Enemy("spellCaster", "officium", 50, 20, 5);
         fightThreeEnemyList.add(0, officium);
 
-        Follower peter = new Follower("healer", "peter", 1, 15);
-        Follower danielle = new Follower("fighter", "danielle", 1, 15);
+        Follower peter = new Follower("healer", "peter", 20, 15);
+        Follower danielle = new Follower("fighter", "danielle", 20, 15);
         Player playerCharacter = new Player(_playerName);
         /**
          * Puts them into their array list
