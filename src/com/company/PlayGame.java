@@ -8,12 +8,8 @@ public class PlayGame {
      * Setting up the variables needed for this class
      */
     public String _playerName;
-    private final ArrayList<Enemy> _fightOne = new ArrayList<>();
-    private final ArrayList<Enemy> _fightTwo = new ArrayList<>();
-    private final ArrayList<Enemy> _fightThree = new ArrayList<>();
     private ArrayList<Character> _playerTeam = new ArrayList<>();
-    private final ArrayList<ArrayList> _fights = new ArrayList<>();
-    private ArrayList<Character> _playerTeamDeepCopy = new ArrayList<>();
+    private final ArrayList<Fight> _fightList = new ArrayList<>();
     private Player _playerCharacter;
 
     /**
@@ -28,31 +24,31 @@ public class PlayGame {
      * Play game main method
      */
     public void playGameMethod() {
-        PrintMethods printMethod = new PrintMethods();
-        createNPCs();
+        createNPCsAndFights();
         boolean fightHappening;
-        printMethod.printRule();
-        printMethod.printIntro();
+        PrintMethods.printRule();
+        PrintMethods.printIntro();
         /**
          * Cycles through all the fights
          */
-        for (int i = 0; i < _fights.size(); i++) {
+        for (int i = 0; i < _fightList.size(); i++) {
             if (i == 2) {
                 _playerCharacter.addHopeSword();
             }
+            final Fight fight = _fightList.get(i);
             fightHappening = true;
             while (fightHappening) {
+
                 /**
                  * Keeps going until the player wins or quits the game
                  * will resume on the current fight they died on
                  */
-                printMethod.printFightIntro(i);
+                PrintMethods.printFightIntro(i);
+
                 /**
-                 * Copies the player before the fight so players removed from the fight(died) will be in the next fight
+                 * Do Fight
                  */
-                _playerTeamDeepCopy = _playerTeam;
-                Fight fightSetUp = new Fight(_playerTeam, _fights.get(i));
-                if (!fightSetUp.playFight()) {
+                if (!fight.playFight()) {
                     keepGoing();
                     if (!keepGoing()) {
                         System.out.println("Better luck next time");
@@ -61,21 +57,24 @@ public class PlayGame {
                 } else {
                     fightHappening = false;
                 }
-                _playerTeam = _playerTeamDeepCopy;
                 /**
-                 * if the player has more than or equal to 100 experience points the leveled up method is called on all Characters in the good guy lsit
+                 * Get all characters healed up for the next round or a try-again.
                  */
-                int playerExperiencePoints = _playerCharacter.getExperiencePoints();
-                if (playerExperiencePoints >= 100)
-                    for (Character character : _playerTeam) {
-                        character.levelUp();
-                    }
+                fight.restoreAllCharacters();
             }
+            /**
+             * if the player has more than or equal to 100 experience points the leveled up method is called on all Characters in the good guy lsit
+             */
+            int playerExperiencePoints = _playerCharacter.getExperiencePoints();
+            if (playerExperiencePoints >= 100)
+                for (Character character : _playerTeam) {
+                    character.levelUp();
+                }
         }
         /**
          * Once the user completes the game the winning method is printed out and the game ends
          */
-        printMethod.printCompletedGame();
+        PrintMethods.printCompletedGame();
 
     }
 
@@ -101,26 +100,30 @@ public class PlayGame {
     /**
      * Creates all needed NCPs and puts them into their respected arrays
      */
-    private void createNPCs() {
+    private void createNPCsAndFights() {
+        ArrayList<Character> fightOneEnemyList = new ArrayList<>();
+        ArrayList<Character> fightTwoEnemyList = new ArrayList<>();
+        ArrayList<Character> fightThreeEnemyList = new ArrayList<>();
+
         Enemy alastair = new Enemy("fighter", "alastair", 15, 10, 1);
         Enemy prescott = new Enemy("spellCaster", "prescott", 10, 15, 1);
 
-        _fightOne.add(0, alastair);  // Could make fightOne as local variable an then add to fights PH
-        _fightOne.add(1, prescott);
+        fightOneEnemyList.add(0, alastair);  // Could make fightOneEnemyList as local variable an then add to fights PH
+        fightOneEnemyList.add(1, prescott);
 
         Enemy fluffy = new Enemy("healer", "fluffy", 15, 20, 2);
         Enemy hoppy = new Enemy("spellCaster", "hoppy", 10, 20, 2);
         Enemy cinnabun = new Enemy("fighter", "cinnabun", 20, 10, 2);
 
-        _fightTwo.add(0, fluffy);
-        _fightTwo.add(1, hoppy);
-        _fightTwo.add(2, cinnabun);
+        fightTwoEnemyList.add(0, fluffy);
+        fightTwoEnemyList.add(1, hoppy);
+        fightTwoEnemyList.add(2, cinnabun);
 
         Enemy officium = new Enemy("spellCaster", "officium", 50, 20, 5);
-        _fightThree.add(0, officium);
+        fightThreeEnemyList.add(0, officium);
 
-        Follower peter = new Follower("healer", "peter", 20, 15);
-        Follower danielle = new Follower("fighter", "danielle", 20, 15);
+        Follower peter = new Follower("healer", "peter", 1, 15);
+        Follower danielle = new Follower("fighter", "danielle", 1, 15);
         Player playerCharacter = new Player(_playerName);
         /**
          * Puts them into their array list
@@ -130,9 +133,8 @@ public class PlayGame {
         _playerTeam.add(1, peter);
         _playerTeam.add(2, danielle);
 
-        _fights.add(0, _fightOne);
-        _fights.add(1, _fightTwo);
-        _fights.add(2, _fightThree);
-
+        _fightList.add(new Fight(_playerTeam, fightOneEnemyList));
+        _fightList.add(new Fight(_playerTeam, fightTwoEnemyList));
+        _fightList.add(new Fight(_playerTeam, fightThreeEnemyList));
     }
 }

@@ -103,7 +103,7 @@ abstract public class Character {
         if (ranInt >= 10) {
             effectCharacter(chosenAction);
             if (currentActionType.equals(HARM_ACTION_TYPE)) {
-                System.out.println(characterDoingActionName + " rolled a and " + ranInt + " "+chosenAction.getActionName()+"ed " + targetName + " for " + chosenAction.getEffect() + " " + chosenAction.getStatEffect());
+                System.out.println(characterDoingActionName + " rolled a " + ranInt + " and "+chosenAction.getActionName()+"ed " + targetName + " for " + chosenAction.getEffect() + " " + chosenAction.getStatEffect());
                 characterDoingAction.increaseExperiencePoints();
             }
             if (currentActionType.equals(HELP_ACTION_TYPE)) {
@@ -160,6 +160,11 @@ abstract public class Character {
      */
     public void increaseExperiencePoints() {
         //only gets added for player
+    }
+
+    public void restoreCharacter(){
+        this._health = _healthCap;
+        this._actionPoints = _actionPointCap;
     }
 }
 

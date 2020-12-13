@@ -5,7 +5,10 @@ package com.company;
  */
 public class PrintMethods {
 
-    public void printRule() {
+    private PrintMethods() {
+    }
+
+    static public void printRule() {
         System.out.println(("\nAt the start of your turn a list of all actions you can preform and information about them \n" +
                 "will be displayed, simply type in the action you want to preform then hit enter. Similarly a list of\n" +
                 "possible targets will be displayed. Enter the full name of your target into the console and hit enter.\n" +
@@ -13,23 +16,23 @@ public class PrintMethods {
                 "Remember to have fun. Good luck!"));
     }
 
-    public void printIntro() {
+    static public void printIntro() {
         System.out.println("\n\nYou enter the land of Sènes where some say the land is as old as time itself flanked on either side by your\n" +
                 " friends Peter and Danielle. Peter smiled towards the horizon, he’s been your friend for forever, a kind soul, the meaning\n" +
                 " of lawful good. Danielle you’ve known for a couple of years but you grew close quickly, she doesn’t seem as interested, a\n" +
                 " chaotic neutral. “This is stupid, Chaotic Neutral? What does that even mean! This game is too nerdy if people at school \n" +
                 "knew we were playing this we’d never live it down.” she said angrily while biting into a large piece of pizza. “Hey, Peter \n" +
-                "set this up for us just be quite your running the emerson.” You reply scowling at Danielle. Peter gave an awkward smile and \n" +
+                "set this up for us. Just be quiet - you're ruining the immersion” you reply, scowling at Danielle. Peter gave an awkward smile and \n" +
                 "continued. This evil world is controlled by a powerful wizard named Officium! “What’s that latin for? Dumbass?” Danielle \n" +
-                "laughed quietly to herself. \n It’s your job as a young adventurers to destroy his evil grip on the world and find peace. Good Luck!");
+                "laughed quietly to herself. \n It’s your job, as a young adventurer, to destroy his evil grip on the world and find peace. Good Luck!");
     }
 
     /**
      * Different fight intro text depending on what fight is happening
-     * @param i which fight you're on
+     * @param fightNumber which fight you're on
      */
-    public void printFightIntro(int i) {
-        if (i == 0) {
+    static public void printFightIntro(int fightNumber) {
+        if (fightNumber == 0) {
             System.out.println("\n\nAfter a while of traveling you enter a small forest clearing. “I roll a perception check.” you say while rolling a dice,\n" +
                     " “Yes a 16!”. You listen carefully and hear what sound like two voices in the background. They jump out brandishing their fierce \n" +
                     "claws! Some goblins approach and attack you! \n You encountered: \n Goblin 1 and Goblin 2 \n They don't look too difficult \n Goblin" +
@@ -37,7 +40,7 @@ public class PrintMethods {
                     "smiles and lets a small chuckle but quickly hides it. \"Uhhh ok\" \n You encountered: \n Alastair and Prescott" +
                     " \n Alastair: Thank you, now prepare to die! \n");
         }
-        if (i == 1) {
+        if (fightNumber == 1) {
             System.out.println("\n\n“Ha we totally kicked their butts!” Danielle exclaimed excitedly. Congrats adventures you’ve completed the first battle but what comes next.\n" +
                     " A while passes and your party has grown, not in numbers but, as some would say, wisdom. Peter seemed distracted while frantically writing something down.\n" +
                     "“It’s time to chill dude this is our night of fun before the big exam,” you say smiling. “I can’t ‘chill’ this decides what highschool what we get into,\n" +
@@ -50,7 +53,7 @@ public class PrintMethods {
                     "to laugh one of the bunnies latch onto a fleeing villager ripping their throat out. \n" +
                     "You encountered:\nFluffy\nHoppy\nand Cinnabun\nVery fitting names.\nI wonder what they might be in reference to?\n");
         }
-        if (i == 2) {
+        if (fightNumber == 2) {
             System.out.println("\n\nYou enter the dark and eerie castle of Officum alone. The dark shades of purple protruding from the castle grounds seemed to have seeped into\n" +
                     " the lush forest like some horrible plague. The sky is dark and just the sight of this large castle ahead of you fills you with dread trying to strip out\n" +
                     "any hope you may still be holding onto. But you enter anyway because there’s no way but forward. \n" +
@@ -64,7 +67,7 @@ public class PrintMethods {
         }
     }
 
-    public void printCompletedGame() {
+    static public void printCompletedGame() {
         System.out.println("\n\n“So that's the end,” Peter said smiling “we won and conquered evil!”. “Don’t worry I’m sure this won’t be the last challenge we’ll\n" +
                 " have to face,” Danielle replied. “I think that's a good note to leave it on tonight though,” you say. “Good timing wanna head down to grab a\n" +
                 "drink, there’s someone very special I’d like you guys to meet,” Danielle said, grabbing her coat and keys. You and Peter both give each other an\n" +

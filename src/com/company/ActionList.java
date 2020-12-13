@@ -7,7 +7,7 @@ public class ActionList {
      * Utility Class to store information and variables
      */
     private final static Action fireball = new Action(5, Character.HARM_ACTION_TYPE, -5, Character.HEALTH_STAT_EFFECT,"fireball");
-    private final static Action rest = new Action(0, Character.REST_ACTION_TYPE, 2, Character.ACTION_POINTS_STAT_EFFECT,"res");
+    private final static Action rest = new Action(0, Character.REST_ACTION_TYPE, 2, Character.ACTION_POINTS_STAT_EFFECT,"rest");
     private final static Action heal = new Action(3, Character.HELP_ACTION_TYPE, 4, Character.HEALTH_STAT_EFFECT,"heal");
     private final static Action stab = new Action(2, Character.HARM_ACTION_TYPE, -3, Character.HEALTH_STAT_EFFECT,"stab");
 

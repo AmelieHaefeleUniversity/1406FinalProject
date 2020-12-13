@@ -40,6 +40,10 @@ public class Player extends Character {
         if (givenAction.getActionType().equals(HARM_ACTION_TYPE)) {
             targetArray = oppositionArray;
         }
+        if (targetArray.size() == 1){
+            System.out.println("Targeting "+targetArray.get(0).getName() + " as they fight on alone...\n");
+            return targetArray.get(0);
+        }
         System.out.println("Target List:\n");
         for (Character value : targetArray) {
             String target = value.getName();
@@ -79,7 +83,7 @@ public class Player extends Character {
             String currentActionType = currentAction.getActionType();
             String currentStatEffected = currentAction.getStatEffect();
             actionName = actionName.substring(0, 1).toUpperCase() + actionName.substring(1);
-            System.out.println(actionName + "\nAction Point Cost:" + currentActionPointCost + " \tAction Type:" + currentActionType + " \tAction Effect:" + currentEffect + " \tStat Effected:" + currentStatEffected + "\n");
+            System.out.println(actionName + ": \tAction Point Cost:" + currentActionPointCost + " \tAction Type:" + currentActionType + " \tAction Effect:" + currentEffect + " \tStat Effected:" + currentStatEffected);
         }
         Scanner input = new Scanner(System.in);
 

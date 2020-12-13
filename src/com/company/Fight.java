@@ -8,6 +8,8 @@ public class Fight {
      */
     final static public String REST_ACTION_TYPE = "neutral";
     private final ArrayList<Character> _heroArray;
+    private final ArrayList<Character> _deadHeroArray;
+    private final ArrayList<Character> _deadEnemyArray;
     private final ArrayList<Character> _enemyArray;
     private final ArrayList<Character> _charactersInFight;
 
@@ -20,6 +22,8 @@ public class Fight {
         this._heroArray = heroArray;
         this._enemyArray = enemyArray;
         this._charactersInFight = addLists(heroArray, enemyArray);
+        this._deadHeroArray = new ArrayList<>();
+        this._deadEnemyArray = new ArrayList<>();
     }
 
     /**
@@ -129,13 +133,47 @@ public class Fight {
          */
         if (currentCharacter.getHealth() <= 0) {
             if (_heroArray.contains(currentCharacter)) {
+                _deadHeroArray.add(currentCharacter);
                 _heroArray.remove(currentCharacter);
-            } else {
+            }
+            if (_enemyArray.contains(currentCharacter)){
+                _deadEnemyArray.add(currentCharacter);
                 _enemyArray.remove(currentCharacter);
             }
             return false;
-        } else {
+        }
+        else {
             return true;
+        }
+    }
+
+    public void restoreAllCharacters() {
+        /**
+         * Restore all the characters
+         */
+        _heroArray.addAll(_deadHeroArray);
+        _deadHeroArray.clear();
+        _enemyArray.addAll(_deadEnemyArray);
+        _deadEnemyArray.clear();
+
+        /**
+         * Move Player to front of list - hack but hey
+         * Otherwise it keep going, this will change the order
+         * of turns based on who dies first but deep copying is unrealistic to do with Arrays
+         * but theoretically could be done
+         * Set player to first position again as it looks better, but doesn't matter as the game will still play
+         * normally
+         */
+        for (int i = 0; i < _heroArray.size(); i++) {
+            if (_heroArray.get(i) instanceof Player) {
+                Character temp = _heroArray.get(0);
+                _heroArray.set(0, _heroArray.get(i));
+                _heroArray.set(i,temp);
+            }
+        }
+
+        for (Character p: _charactersInFight){
+            p.restoreCharacter();
         }
     }
 
@@ -175,5 +213,6 @@ public class Fight {
             System.out.println(character.getName().substring(0, 1).toUpperCase() + character.getName().substring(1) + ":\tHealth:" + character.getHealth() + "\tAction Points:" + character.getActionPoints());
         }
     }
+
 }
 
