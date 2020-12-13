@@ -49,7 +49,6 @@ public class PlayGame {
                  * Do Fight
                  */
                 if (!fight.playFight()) {
-                    keepGoing();
                     if (!keepGoing()) {
                         System.out.println("Better luck next time");
                         return;
