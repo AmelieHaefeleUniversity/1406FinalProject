@@ -8,7 +8,7 @@ public class GameMain {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
         System.out.println("What's your name?");
-        String playerName = input.nextLine();
+        String playerName = input.nextLine().toLowerCase();
         PlayGame Game = new PlayGame(playerName);
         Game.playGameMethod();
     }

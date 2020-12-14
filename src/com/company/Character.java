@@ -58,7 +58,7 @@ abstract public class Character {
      * @return returns the chosen action or target
      */
     abstract public Character getTarget(ArrayList<Character> teamArray, ArrayList<Character> oppositionArray, Action givenAction);
-    abstract public Action getAction(ArrayList<Character> teamArray, ArrayList<Character> enemyArray, Character currentNPC);
+    abstract public Action getAction(ArrayList<Character> teamArray, Character currentNPC);
 
     /**
      * Getter methods
@@ -167,6 +167,3 @@ abstract public class Character {
         this._actionPoints = _actionPointCap;
     }
 }
-
-
-

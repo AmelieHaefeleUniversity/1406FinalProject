@@ -104,7 +104,6 @@ public class Fight {
      * @param i which character in the array the turn is currently on
      */
     private void turn(ArrayList<Character> alliedArray, ArrayList<Character> oppositionArray, int i) {
-        checkDeadPlayers();
         Character currentCharacter = alliedArray.get(i);
 
         /**
@@ -114,7 +113,7 @@ public class Fight {
             return;
         }
         Character target;
-        Action action = currentCharacter.getAction(alliedArray, oppositionArray, currentCharacter);
+        Action action = currentCharacter.getAction(alliedArray, currentCharacter);
         String chosenActionType = action.getActionType();
 
         if (chosenActionType.equals(REST_ACTION_TYPE)) {
@@ -218,4 +217,3 @@ public class Fight {
     }
 
 }
-

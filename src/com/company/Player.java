@@ -70,11 +70,10 @@ public class Player extends Character {
      * asks for the players inputted action
      * if the action is not valid it will re prompt them to enter a valid one
      * @param heroArray the array of players the player is fighting alongside
-     * @param enemyArray the array of characters the player is fighting against
      * @param playerCharacter the player
      * @return returns the players chosen action
      */
-    public Action getAction(ArrayList<Character> heroArray, ArrayList<Character> enemyArray, Character playerCharacter) {
+    public Action getAction(ArrayList<Character> heroArray, Character playerCharacter) {
         System.out.println("\nAction List:\n");
         for (String actionName : _playerActionList.keySet()) {
             Action currentAction = _playerActionList.get(actionName);

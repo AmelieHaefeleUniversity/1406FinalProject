@@ -40,11 +40,10 @@ public class NPC extends Character {
     /**
      * Get Action based on play style
      * @param teamArray the array the current character is fighting alongside
-     * @param enemyArray the array the current character is fighting
      * @param currentNPC the current character getting an action
      * @return returns the action
      */
-    public Action getAction(ArrayList<Character> teamArray, ArrayList<Character> enemyArray, Character currentNPC) {
+    public Action getAction(ArrayList<Character> teamArray, Character currentNPC) {
         if (_playStyle.equals(HEALER_TYPE)) {
             return getHealerAction(teamArray, currentNPC);
         }
@@ -198,6 +197,3 @@ public class NPC extends Character {
         this._level = _level + 1;
     }
 }
-
-
-
