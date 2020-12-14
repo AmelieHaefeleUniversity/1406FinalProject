@@ -17,7 +17,7 @@ public class Player extends Character {
      * @param name the player's name
      */
     public Player(String name) {
-        super(name, 1, 15);
+        super(name, 20, 15);
         _playerActionList = ActionList.getActionList();
         this._experiencePoints = 0;
     }
